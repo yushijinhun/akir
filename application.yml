@@ -1,0 +1,14 @@
+server:
+  # HTTP服务端口号
+  port: 8080
+spring:
+  datasource:
+    # 数据库驱动
+    # 如果使用其它数据库，则要修改此项，并在classpath内加入对应的驱动
+    driver-class-name: com.mysql.jdbc.Driver
+    # 数据库地址
+    url: jdbc:mysql://localhost/akir
+    # 数据库用户名
+    username: akir
+    # 数据库密码
+    password: 123456
