@@ -27,6 +27,8 @@ repositories {
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web",
 			"org.springframework.boot:spring-boot-starter-data-jpa",
+			"org.springframework.boot:spring-boot-starter-security",
+			"org.springframework.boot:spring-boot-starter-freemarker",
 			"mysql:mysql-connector-java")
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
