@@ -1,11 +1,11 @@
-package org.to2mbn.akir.service;
+package org.to2mbn.akir.core.service;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.to2mbn.akir.model.User;
+import org.to2mbn.akir.core.model.User;
 
 public class AkirUserDetails implements UserDetails {
 

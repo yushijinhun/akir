@@ -1,4 +1,4 @@
-package org.to2mbn.akir.service;
+package org.to2mbn.akir.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,8 +7,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.to2mbn.akir.model.User;
-import org.to2mbn.akir.repository.UserRepository;
+import org.to2mbn.akir.core.model.User;
+import org.to2mbn.akir.core.repository.UserRepository;
 
 @Component
 public class UserService implements UserDetailsService {

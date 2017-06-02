@@ -1,4 +1,4 @@
-package org.to2mbn.akir.model;
+package org.to2mbn.akir.core.model;
 
 import java.util.Map;
 import java.util.UUID;

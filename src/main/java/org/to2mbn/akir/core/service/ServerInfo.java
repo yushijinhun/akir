@@ -1,4 +1,4 @@
-package org.to2mbn.akir.service;
+package org.to2mbn.akir.core.service;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

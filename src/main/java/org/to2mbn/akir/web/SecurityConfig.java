@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.to2mbn.akir.web.login.ReturnableLoginUrlAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -19,8 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers(
 
-						"/css/**", "/img/**", "/js/**",
-						"/register"
+						"/css/**", "/img/**", "/js/**", "/favicon.ico",
+						"/register", "/login"
 
 				).permitAll()
 				.anyRequest().authenticated()
@@ -28,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 
 				// login
-				.formLogin()
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.loginPage("/login")
-				.permitAll();
+				.exceptionHandling()
+				.authenticationEntryPoint(
+						new ReturnableLoginUrlAuthenticationEntryPoint("/login"))
+
+		;
 	}
 
 	@Bean

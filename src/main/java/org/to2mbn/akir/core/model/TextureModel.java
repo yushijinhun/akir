@@ -1,4 +1,4 @@
-package org.to2mbn.akir.model;
+package org.to2mbn.akir.core.model;
 
 public enum TextureModel {
 

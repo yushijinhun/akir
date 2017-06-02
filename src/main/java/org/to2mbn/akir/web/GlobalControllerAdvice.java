@@ -3,7 +3,7 @@ package org.to2mbn.akir.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.to2mbn.akir.service.ServerInfo;
+import org.to2mbn.akir.core.service.ServerInfo;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {

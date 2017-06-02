@@ -1,10 +1,10 @@
-package org.to2mbn.akir.repository;
+package org.to2mbn.akir.core.repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.to2mbn.akir.model.GameProfile;
+import org.to2mbn.akir.core.model.GameProfile;
 
 public interface GameProfileRepository extends PagingAndSortingRepository<GameProfile, UUID> {
 
