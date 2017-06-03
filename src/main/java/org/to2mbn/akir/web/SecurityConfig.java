@@ -16,24 +16,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+				// cache control
+				.headers()
+				.cacheControl().disable()
+				.and()
+
 				// access control
 				.authorizeRequests()
 				.antMatchers(
 
-						"/css/**", "/img/**", "/js/**", "/favicon.ico",
+						"/css/**", "/images/**", "/js/**", "/favicon.ico",
 						"/register", "/login"
 
 				).permitAll()
 				.anyRequest().authenticated()
-
 				.and()
 
 				// login
 				.exceptionHandling()
 				.authenticationEntryPoint(
 						new ReturnableLoginUrlAuthenticationEntryPoint("/login"))
+				.and()
 
-		;
+				// logout
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
+				.and();
 	}
 
 	@Bean

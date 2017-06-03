@@ -12,7 +12,7 @@ public class GlobalRestControllerAdvice {
 		ErrorMessage msg = new ErrorMessage();
 		msg.setError(exception.getClass().getSimpleName());
 		msg.setErrorMessage(exception.getMessage());
-		response.setStatus(400);
+		response.setStatus(400); // TODO: better error code
 		return msg;
 	}
 

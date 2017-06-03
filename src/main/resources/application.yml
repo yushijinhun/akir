@@ -2,4 +2,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
+  resources:
+    static-locations:
+      - classpath:/static/
+    cache-period: 691200
+security:
+  ignored:
+    - /css/**
+    - /js/**
+    - /images/**
+    - /favicon.ico

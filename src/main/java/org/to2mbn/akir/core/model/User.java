@@ -3,6 +3,7 @@ package org.to2mbn.akir.core.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -13,6 +14,7 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private String name;
 
+	@JsonIgnore
 	private String passwordHash;
 
 	public String getEmail() {

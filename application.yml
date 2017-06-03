@@ -14,4 +14,7 @@ spring:
     password: 123456
 akir-server:
   # 服务器名称
-  name: Akir
+  name: akir
+view-config:
+  # css/js cdn
+  assets-cdn: https://cdn.bootcss.com/

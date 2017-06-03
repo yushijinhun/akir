@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.RedirectUrlBuilder;
@@ -13,8 +14,12 @@ public class ReturnableLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenti
 
 	public static final String LOGIN_RETURN_URL = "login_return_url";
 
-	public static Optional<String> getReturnUrl(HttpServletRequest request) {
-		return Optional.ofNullable((String) request.getSession().getAttribute(LOGIN_RETURN_URL));
+	public static Optional<String> consumeReturnUrl(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String returnUrl = (String) session.getAttribute(LOGIN_RETURN_URL);
+		if (returnUrl != null)
+			session.removeAttribute(LOGIN_RETURN_URL);
+		return Optional.ofNullable(returnUrl);
 	}
 
 	public ReturnableLoginUrlAuthenticationEntryPoint(String loginFormUrl) {
