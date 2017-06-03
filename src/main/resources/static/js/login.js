@@ -1,5 +1,6 @@
 $(function(){
 	$('#login-form').submit(function(){
+		close_alert();
 		$('#login-btn').prop('disabled',true);
 		$('#login-btn').text('Login...');
 		$.ajax({
