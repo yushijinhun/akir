@@ -13,9 +13,6 @@ public class GlobalControllerAdvice {
 	@Autowired
 	private ServerInfo serverInfo;
 
-	@Autowired
-	private ViewConfig viewConfig;
-
 	@ModelAttribute("akir_server")
 	public ServerInfo akirServer() {
 		return serverInfo;
@@ -29,11 +26,6 @@ public class GlobalControllerAdvice {
 		urlBuilder.setPort(request.getServerPort());
 		urlBuilder.setContextPath(request.getContextPath());
 		return urlBuilder.getUrl();
-	}
-
-	@ModelAttribute("view_config")
-	public ViewConfig viewConfig() {
-		return viewConfig;
 	}
 
 }

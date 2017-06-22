@@ -1,25 +1,30 @@
+<#import "spring.ftl" as spring/>
 <#include "libs.ftl">
 
 <#-- reusable elements -->
+<#macro url url>
+<@spring.url url/>
+</#macro>
+
 <#macro meta_csrf>
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </#macro>
 
-<#macro js path>
+<#macro ext_js path>
 <script src="${path}"></script>
 </#macro>
 
-<#macro css path>
+<#macro ext_css path>
 <link href="${path}" rel="stylesheet">
 </#macro>
 
-<#macro jslib path>
-<script src="${view_config.assetsCdn}${path}"></script>
+<#macro js path>
+<script src="<@url path/>"></script>
 </#macro>
 
-<#macro csslib path>
-<link href="${view_config.assetsCdn}${path}" rel="stylesheet">
+<#macro css path>
+<link href="<@url path/>" rel="stylesheet">
 </#macro>
 
 
@@ -32,7 +37,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<@meta_csrf/>
 		<@css "/css/background.css"/>
-		<@csslib css_bootstrap/>
+		<@ext_css css_bootstrap/>
 		<#nested>
 	</head>
 	<body>
@@ -41,9 +46,9 @@
 
 <#macro page_end>
 		</div>
-		<@jslib js_jquery/>
-		<@jslib js_bootstrap/>
-		<@jslib js_jquery_serialize_object/>
+		<@ext_js js_jquery/>
+		<@ext_js js_bootstrap/>
+		<@ext_js js_jquery_serialize_object/>
 		<@js "/js/csrf.js"/>
 		<#nested>
 	</body>

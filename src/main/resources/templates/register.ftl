@@ -34,5 +34,6 @@
 </div>
 
 <@page_end>
+	<@ext_js js_bootstrap_validator/>
 	<@js "/js/panel-common.js"/>
 </@page_end>

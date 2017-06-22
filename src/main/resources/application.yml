@@ -3,9 +3,11 @@ spring:
     hibernate:
       ddl-auto: update
   resources:
-    static-locations:
-      - classpath:/static/
     cache-period: 691200
+    chain:
+      strategy:
+        content:
+          enabled: true
 security:
   ignored:
     - /css/**
