@@ -1,3 +1,11 @@
+html {
+  background-color: rgb(249,249,249);
+}
+
+body {
+  background: transparent;
+}
+
 .panel .alert {
   margin: 0;
   border-radius: 0;

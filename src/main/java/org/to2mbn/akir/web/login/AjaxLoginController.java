@@ -24,7 +24,7 @@ public class AjaxLoginController {
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void login(@RequestBody LoginRequest req, Principal principal) {
 		if (principal == null) {
-			Authentication auth = authProvider.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword()));
+			Authentication auth = authProvider.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail().toLowerCase(), req.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(auth);
 		}
 	}

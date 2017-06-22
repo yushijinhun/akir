@@ -8,4 +8,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 
 	Optional<User> findByName(String name);
 
+	boolean existsByName(String name);
+
 }

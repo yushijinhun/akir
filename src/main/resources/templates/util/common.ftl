@@ -1,14 +1,9 @@
-<#import "spring.ftl" as spring/>
+<#import "../spring.ftl" as spring/>
 <#include "libs.ftl">
 
 <#-- reusable elements -->
 <#macro url url>
 <@spring.url url/>
-</#macro>
-
-<#macro meta_csrf>
-<meta name="_csrf" content="${_csrf.token}"/>
-<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </#macro>
 
 <#macro ext_js path>
@@ -35,8 +30,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<@meta_csrf/>
-		<@css "/css/background.css"/>
+		<meta name="_csrf" content="${_csrf.token}"/>
+		<meta name="_csrf_header" content="${_csrf.headerName}"/>
+		<meta name="_home_url" content="${home_page_url}"/>
 		<@ext_css css_bootstrap/>
 		<#nested>
 	</head>
@@ -50,6 +46,7 @@
 		<@ext_js js_bootstrap/>
 		<@ext_js js_jquery_serialize_object/>
 		<@js "/js/csrf.js"/>
+		<@js "/js/common.js"/>
 		<#nested>
 	</body>
 </html>

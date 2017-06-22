@@ -1,4 +1,4 @@
-<#include "common.ftl">
+<#include "util/common.ftl">
 
 <@page_head>
 	<meta name="_login_return_url" content="${login_return_url!home_page_url}"/>

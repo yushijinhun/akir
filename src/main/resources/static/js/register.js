@@ -1,0 +1,21 @@
+$(function(){
+	ajaxForm({
+		form:$('#register-form'),
+		url:'register',
+		success:function(){
+			$(location).attr('href',homeUrl());
+		},
+		error:function(err){
+			show_alert('danger',err.errorMessage);
+		},
+		before:function(){
+			close_alert();
+			$('#register-btn').prop('disabled',true);
+			$('#register-btn').text('Register...');
+		},
+		after:function(){
+			$('#register-btn').prop('disabled',false);
+			$('#register-btn').text('Register');
+		}
+	});
+});
