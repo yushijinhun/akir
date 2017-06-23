@@ -1,5 +1,8 @@
 function ajaxForm(config){
 	config.form.submit(function(){
+		if(config.form.find("button[type='submit']").is('.disabled')){
+			return false;
+		}
 		config.before();
 		$.ajax({
 			url:config.url,

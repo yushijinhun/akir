@@ -29,6 +29,8 @@ dependencies {
 			"org.springframework.boot:spring-boot-starter-data-jpa",
 			"org.springframework.boot:spring-boot-starter-security",
 			"org.springframework.boot:spring-boot-starter-freemarker",
+			"org.springframework.boot:spring-boot-starter-mail",
+			"org.apache.commons:commons-text:1.1",
 			"mysql:mysql-connector-java")
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }

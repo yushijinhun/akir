@@ -12,6 +12,22 @@ spring:
     username: akir
     # 数据库密码
     password: 123456
+  mail:
+    # 发送验证邮件使用的邮箱配置
+    host: example.com
+    port: 587
+    protocol: smtp
+    username: email@example.com
+    password: 123456
+    properties:
+      mail.smtp.starttls.enable: true
 akir-server:
   # 服务器名称
   name: akir
+  # 能访问到该服务端的URL
+  url: http://localhost:8080/
+  # 是否要求注册时验证邮箱
+  require-email-verfied: true
+  # 发送验证邮件的邮箱
+  # 默认同spring.mail.username，自定义请将下行uncomment
+  # verify-email-sender: email@example.com

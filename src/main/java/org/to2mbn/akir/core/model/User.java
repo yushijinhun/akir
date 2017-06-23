@@ -17,6 +17,8 @@ public class User {
 	@JsonIgnore
 	private String passwordHash;
 
+	private boolean emailVerified;
+
 	public String getEmail() {
 		return email;
 	}
@@ -39,6 +41,14 @@ public class User {
 
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
+	}
+
+	public boolean isEmailVerified() {
+		return emailVerified;
+	}
+
+	public void setEmailVerified(boolean emailVerified) {
+		this.emailVerified = emailVerified;
 	}
 
 }

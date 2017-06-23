@@ -2,9 +2,10 @@ package org.to2mbn.akir.web;
 
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(annotations = { RestController.class })
 public class GlobalRestControllerAdvice {
 
 	@ExceptionHandler(Exception.class)

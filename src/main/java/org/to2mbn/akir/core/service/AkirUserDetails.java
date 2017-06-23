@@ -3,7 +3,9 @@ package org.to2mbn.akir.core.service;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.to2mbn.akir.core.model.User;
 
@@ -13,13 +15,16 @@ public class AkirUserDetails implements UserDetails {
 
 	private User userModel;
 
+	private static final Set<GrantedAuthority> AUTHORITIES_UNVERIFIED = Collections.emptySet();
+	private static final Set<GrantedAuthority> AUTHORITIES_VERIFIED = Collections.singleton(new SimpleGrantedAuthority("ROLE_VERIFIED"));
+
 	public AkirUserDetails(User userModel) {
 		this.userModel = Objects.requireNonNull(userModel);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.emptySet();
+		return userModel.isEmailVerified() ? AUTHORITIES_VERIFIED : AUTHORITIES_UNVERIFIED;
 	}
 
 	@Override
