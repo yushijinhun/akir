@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.to2mbn.akir.core.repository.UserRepository;
-import org.to2mbn.akir.core.service.UserService;
+import org.to2mbn.akir.core.service.user.UserService;
 
 @RequestMapping("/register")
 @RestController

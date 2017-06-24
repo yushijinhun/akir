@@ -1,4 +1,4 @@
-package org.to2mbn.akir.core.service.email;
+package org.to2mbn.akir.core.service.user.email;
 
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;

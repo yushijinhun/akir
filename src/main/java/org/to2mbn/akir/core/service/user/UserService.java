@@ -1,9 +1,10 @@
-package org.to2mbn.akir.core.service;
+package org.to2mbn.akir.core.service.user;
 
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -18,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.to2mbn.akir.core.model.User;
 import org.to2mbn.akir.core.repository.UserRepository;
-import org.to2mbn.akir.core.service.email.EmailVerifyService;
 
 @Component
 public class UserService implements UserDetailsService {
@@ -48,10 +48,7 @@ public class UserService implements UserDetailsService {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private EmailVerifyService emailVerifyService;
-
-	@Autowired
-	private AkirConfig config;
+	private ApplicationEventPublisher eventPublisher;
 
 	@Override
 	public AkirUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -84,18 +81,15 @@ public class UserService implements UserDetailsService {
 		user.setEmail(email);
 		user.setName(name);
 		user.setPasswordHash(passwordEncoder.encode(password));
-
-		if (config.isRequireEmailVerfied()) {
-			user.setEmailVerified(false);
-			user = repository.save(user);
-			emailVerifyService.sendVerifyEmail(user);
-		} else {
-			user.setEmailVerified(true);
-			user = repository.save(user);
-		}
+		user.setEmailVerified(false);
+		user = repository.save(user);
 
 		LOGGER.info("User {} registered", user.getEmail());
-		return user;
+
+		eventPublisher.publishEvent(new UserRegistrationEvent(this, user.getEmail()));
+
+		// re-find the user object as the user object might have been changed
+		return repository.findById(user.getEmail()).get();
 	}
 
 	@EventListener

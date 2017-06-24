@@ -1,4 +1,4 @@
-package org.to2mbn.akir.core.service;
+package org.to2mbn.akir.core.service.user;
 
 import java.util.Collection;
 import java.util.Collections;
