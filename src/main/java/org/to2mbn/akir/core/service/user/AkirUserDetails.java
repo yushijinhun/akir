@@ -2,39 +2,43 @@ package org.to2mbn.akir.core.service.user;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.to2mbn.akir.core.model.User;
 
 public class AkirUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
-	private User userModel;
+	private Function<String, Optional<User>> userAccessor;
+	private String userId;
 
 	private static final Set<GrantedAuthority> AUTHORITIES_UNVERIFIED = Collections.emptySet();
 	private static final Set<GrantedAuthority> AUTHORITIES_VERIFIED = Collections.singleton(new SimpleGrantedAuthority("ROLE_VERIFIED"));
 
-	public AkirUserDetails(User userModel) {
-		this.userModel = Objects.requireNonNull(userModel);
+	public AkirUserDetails(Function<String, Optional<User>> userAccessor, String userId) {
+		this.userAccessor = userAccessor;
+		this.userId = userId;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return userModel.isEmailVerified() ? AUTHORITIES_VERIFIED : AUTHORITIES_UNVERIFIED;
+		return getUserModel().isEmailVerified() ? AUTHORITIES_VERIFIED : AUTHORITIES_UNVERIFIED;
 	}
 
 	@Override
 	public String getPassword() {
-		return userModel.getPasswordHash();
+		return getUserModel().getPasswordHash();
 	}
 
 	@Override
 	public String getUsername() {
-		return userModel.getEmail();
+		return userId;
 	}
 
 	@Override
@@ -58,7 +62,12 @@ public class AkirUserDetails implements UserDetails {
 	}
 
 	public User getUserModel() {
-		return userModel;
+		return userAccessor.apply(userId).orElseThrow(() -> new UsernameNotFoundException(userId));
+	}
+
+	@Override
+	public String toString() {
+		return getUserModel().getEmail();
 	}
 
 }

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.to2mbn.akir.core.model.User;
 import org.to2mbn.akir.core.service.AkirConfig;
 
 @ControllerAdvice
@@ -20,6 +21,11 @@ public class GlobalControllerAdvice {
 	@ModelAttribute("home_page_url")
 	public String homePageUrl(HttpServletRequest request) {
 		return serverInfo.getUrl();
+	}
+
+	@ModelAttribute("user")
+	public User user(User user) {
+		return user;
 	}
 
 }

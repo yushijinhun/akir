@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.to2mbn.akir.web.util.exception.AccessDeniedController;
 
 @Configuration
 @EnableWebSecurity
@@ -16,6 +17,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AuthenticationEntryPoint authEntry;
+
+	@Autowired
+	private AccessDeniedController accessDeniedController;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -29,16 +33,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers(
 
+						// == static resources -> permit all
 						"/css/**", "/images/**", "/js/**", "/favicon.ico",
-						"/register/**", "/login"
+
+						// == login/register/email_verify -> permit all
+						"/register/**", "/login", "/email_verify/do_verify"
 
 				).permitAll()
-				.anyRequest().authenticated()
+				.antMatchers(
+
+						// == (re)send_verify_email -> permit authenticated users
+						"/email_verify/**"
+
+				).authenticated()
+
+				// == other urls -> permit verified users
+				.anyRequest().hasAuthority("ROLE_VERIFIED")
 				.and()
 
 				// login
 				.exceptionHandling()
 				.authenticationEntryPoint(authEntry)
+				.accessDeniedHandler(accessDeniedController)
 				.and()
 
 				// logout

@@ -34,7 +34,7 @@ public class EmailVerifyService {
 
 	private RandomStringGenerator codeGenerator;
 
-	private long availableTime = TimeUnit.HOURS.toMillis(6);
+	private long availableTime = TimeUnit.HOURS.toMillis(8);
 	private int codeLength = 64;
 
 	public EmailVerifyService() {
@@ -72,17 +72,17 @@ public class EmailVerifyService {
 		verifyEmailSender.sendEmail(code, user);
 	}
 
-	public void verifyEmail(String email, String code) {
+	public void verifyEmail(String email, String code) throws EmailVerifyException {
 		User user = userRepo.findById(email.toLowerCase())
-				.orElseThrow(() -> new IllegalArgumentException("User not exists"));
+				.orElseThrow(() -> new WrongVerifyCodeException("User not exists"));
 		if (user.isEmailVerified())
-			throw new IllegalStateException("Email already verified");
+			throw new AlreadyVerifiedException("Email already verified");
 		EmailVerifyCode verifyCode = repository.findById(email)
-				.orElseThrow(() -> new IllegalStateException("Verify code not exists"));
+				.orElseThrow(() -> new WrongVerifyCodeException("Verify code not exists"));
 		if (System.currentTimeMillis() > verifyCode.getAvailableBefore())
-			throw new IllegalStateException("Verify code has been expired, please resend");
+			throw new VerifyCodeExpiredException("Verify code has been expired, please resend");
 		if (!verifyCode.getCode().equals(code))
-			throw new IllegalArgumentException("Wrong verify code");
+			throw new WrongVerifyCodeException("Wrong verify code");
 
 		repository.delete(verifyCode);
 		user.setEmailVerified(true);

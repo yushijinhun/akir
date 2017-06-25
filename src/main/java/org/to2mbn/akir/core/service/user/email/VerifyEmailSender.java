@@ -3,6 +3,7 @@ package org.to2mbn.akir.core.service.user.email;
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -61,7 +62,7 @@ public class VerifyEmailSender {
 	}
 
 	private String subject() {
-		return String.format("Verify your email - %s", config.getName());
+		return MessageFormat.format("Verify your email - {0}", config.getName());
 	}
 
 	private Object model(EmailVerifyCode code, User user) {
@@ -76,8 +77,8 @@ public class VerifyEmailSender {
 
 	private String verifyUrl(EmailVerifyCode code) {
 		RedirectUrlBuilder url = config.rootUrl();
-		url.setServletPath("/register/verify_email");
-		url.setQuery(String.format("email=%s&code=%s", urlEncode(code.getEmail()), urlEncode(code.getCode())));
+		url.setServletPath("/email_verify/do_verify");
+		url.setQuery(MessageFormat.format("email={0}&code={1}", urlEncode(code.getEmail()), urlEncode(code.getCode())));
 		return url.getUrl();
 	}
 

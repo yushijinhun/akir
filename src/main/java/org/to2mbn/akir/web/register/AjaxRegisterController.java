@@ -1,5 +1,6 @@
 package org.to2mbn.akir.web.register;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class AjaxRegisterController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void register(@RequestBody RegisterRequest request) {
+	public void register(@Valid @RequestBody RegisterRequest request) {
 		userService.register(request.getEmail(), request.getName(), request.getPassword());
 	}
 

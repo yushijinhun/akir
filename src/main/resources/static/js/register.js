@@ -6,7 +6,7 @@ $(function(){
 			$(location).attr('href',homeUrl());
 		},
 		error:function(err){
-			show_alert('danger',err.errorMessage);
+			show_alert('danger',err.error);
 		},
 		before:function(){
 			close_alert();
