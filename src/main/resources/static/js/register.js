@@ -1,9 +1,9 @@
 $(function(){
 	ajaxForm({
 		form:$('#register-form'),
-		url:'register',
+		url:'/register',
 		success:function(){
-			$(location).attr('href',homeUrl());
+			$(location).attr('href','/');
 		},
 		error:function(err){
 			show_alert('danger',err.error);

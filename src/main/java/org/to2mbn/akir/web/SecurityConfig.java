@@ -1,5 +1,8 @@
 package org.to2mbn.akir.web;
 
+import static org.to2mbn.akir.web.util.WebUtils.isAjax;
+import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.to2mbn.akir.web.util.exception.AccessDeniedController;
+import org.to2mbn.akir.core.model.User;
+import org.to2mbn.akir.core.service.user.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -17,9 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AuthenticationEntryPoint authEntry;
-
-	@Autowired
-	private AccessDeniedController accessDeniedController;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -54,7 +55,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// login
 				.exceptionHandling()
 				.authenticationEntryPoint(authEntry)
-				.accessDeniedHandler(accessDeniedController)
+
+				// redirect to '/email_verify' is email is not verified
+				.accessDeniedHandler((request, response, ex) -> {
+					if (!isAjax(request)) {
+						Optional<User> user = UserService.getCurrentUser();
+						if (user.isPresent() && !user.get().isEmailVerified()) {
+							response.sendRedirect("/email_verify");
+							return;
+						}
+					}
+					response.sendError(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
+				})
 				.and()
 
 				// logout

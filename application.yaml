@@ -7,7 +7,7 @@ spring:
     # 如果使用其它数据库，则要修改此项，并在classpath内加入对应的驱动
     driver-class-name: com.mysql.jdbc.Driver
     # 数据库地址
-    url: jdbc:mysql://localhost/akir
+    url: 'jdbc:mysql://localhost/akir?verifyServerCertificate=false&useSSL=true'
     # 数据库用户名
     username: akir
     # 数据库密码

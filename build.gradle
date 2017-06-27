@@ -1,11 +1,11 @@
 buildscript {
 	repositories {
 		jcenter()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
+		maven { url 'https://repo.spring.io/snapshot' }
+		maven { url 'https://repo.spring.io/milestone' }
 	}
 	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT"
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT'
 	}
 }
 
@@ -14,28 +14,35 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 jar {
-	baseName = "akir"
-	version = "0.0.1-SNAPSHOT"
+	baseName = 'akir'
+	version = '0.0.1-SNAPSHOT'
 }
 
 repositories {
 	jcenter()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+configurations {
+	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web",
-			"org.springframework.boot:spring-boot-starter-data-jpa",
-			"org.springframework.boot:spring-boot-starter-security",
-			"org.springframework.boot:spring-boot-starter-freemarker",
-			"org.springframework.boot:spring-boot-starter-mail",
-			"org.springframework.boot:spring-boot-starter-validation",
-			"org.apache.commons:commons-text:1.1",
-			"mysql:mysql-connector-java")
-	testCompile("org.springframework.boot:spring-boot-starter-test")
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile 'org.springframework.boot:spring-boot-starter-security'
+	compile 'org.springframework.boot:spring-boot-starter-freemarker'
+	compile 'org.springframework.boot:spring-boot-starter-mail'
+	compile 'org.springframework.boot:spring-boot-starter-validation'
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+	compile 'org.apache.logging.log4j:log4j-web'
+	compile 'org.apache.commons:commons-text:1.1'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+	compile 'mysql:mysql-connector-java'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
 bootJar {
-	mainClass = "org.to2mbn.akir.Application"
+	mainClass = 'org.to2mbn.akir.Application'
 }

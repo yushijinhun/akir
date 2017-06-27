@@ -26,20 +26,15 @@ function handleErrorResponse(err){
 	if(err.responseJSON===undefined){
 		if(err.responseText===undefined){
 			return {
-				error:'unknown_error',
-				errorMessage:'Unknown error'
+				error:'unknown_error'
 			};
 		}else{
 			return {
 				error:'json_parse_error',
-				errorMessage:err.responseText
+				details:err.responseText
 			};
 		}
 	}else{
 		return err.responseJSON;
 	}
-}
-
-function homeUrl(){
-	return $("meta[name='_home_url']").attr("content");
 }

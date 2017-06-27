@@ -10,7 +10,13 @@ spring:
           enabled: true
 security:
   ignored:
-    - /css/**
-    - /js/**
-    - /images/**
-    - /favicon.ico
+  - /css/**
+  - /js/**
+  - /images/**
+  - /favicon.ico
+server:
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      pattern: '%t %a "%r" %s (%D ms)'

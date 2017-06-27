@@ -1,7 +1,7 @@
 $(function(){
 	ajaxForm({
 		form:$('#login-form'),
-		url:'login',
+		url:'/login',
 		success:function(){
 			$(location).attr('href',$("meta[name='_login_return_url']").attr("content"));
 		},

@@ -13,7 +13,7 @@ gradle bootJar
 构建输出位于`build/libs`。
 
 ## 运行
-将`application.yml`拷贝一份，放在当前目录下，并编辑其中配置。
+将`application.yaml`拷贝一份，放在当前目录下，并编辑其中配置。
 然后执行：
 ```
 java -jar akir.jar

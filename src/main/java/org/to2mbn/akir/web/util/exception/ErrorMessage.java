@@ -1,15 +1,14 @@
 package org.to2mbn.akir.web.util.exception;
 
+import java.text.MessageFormat;
+import java.util.Objects;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 public class ErrorMessage {
-
-	public static final String CLIENT_ERROR = "client_error";
-	public static final String SERVER_ERROR = "server_error";
-	public static final String UNKNOWN_ERROR = "unknown_error";
-	public static final int DEFAULT_ERROR_CODE = HttpStatus.INTERNAL_SERVER_ERROR.value();
 
 	private String error;
 	private int code;
@@ -17,10 +16,14 @@ public class ErrorMessage {
 	@JsonInclude(Include.NON_NULL)
 	private String details;
 
+	public ErrorMessage(String error, HttpStatus status, String details) {
+		this(error, status.value(), details);
+	}
+
 	public ErrorMessage(String error, int code, String details) {
-		this.error = error;
+		this.error = Objects.requireNonNull(error);
 		this.code = code;
-		this.details = details != null && details.trim().isEmpty() ? null : details;
+		this.details = details;
 	}
 
 	public String getError() {
@@ -33,6 +36,20 @@ public class ErrorMessage {
 
 	public String getDetails() {
 		return details;
+	}
+
+	public ResponseEntity<ErrorMessage> toResponseEntity() {
+		return new ResponseEntity<>(this, getStatus());
+	}
+
+	@JsonIgnore
+	public HttpStatus getStatus() {
+		return HttpStatus.valueOf(code);
+	}
+
+	@Override
+	public String toString() {
+		return MessageFormat.format("[error={0}, code={1}, details={2}]", error, code, details);
 	}
 
 }

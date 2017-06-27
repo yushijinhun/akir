@@ -32,7 +32,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="_csrf" content="${_csrf.token}"/>
 		<meta name="_csrf_header" content="${_csrf.headerName}"/>
-		<meta name="_home_url" content="${home_page_url}"/>
 		<@ext_css css_bootstrap/>
 		<#nested>
 	</head>

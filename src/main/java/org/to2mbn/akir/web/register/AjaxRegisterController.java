@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.to2mbn.akir.core.repository.UserRepository;
+import org.to2mbn.akir.core.service.user.UserConflictException;
 import org.to2mbn.akir.core.service.user.UserService;
 
 @RequestMapping("/register")
@@ -25,21 +26,21 @@ public class AjaxRegisterController {
 
 	@GetMapping("validate/email")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void validateEmail(@RequestParam String email) {
+	public void validateEmail(@RequestParam String email) throws UserConflictException {
 		if (userRepo.existsById(email.toLowerCase()))
-			throw new IllegalArgumentException("Email is already in use");
+			throw new UserConflictException("Email is already in use");
 	}
 
 	@GetMapping("validate/name")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void validateName(@RequestParam String name) {
+	public void validateName(@RequestParam String name) throws UserConflictException {
 		if (userRepo.existsByName(name.toLowerCase()))
-			throw new IllegalArgumentException("Name is already in use");
+			throw new UserConflictException("Name is already in use");
 	}
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void register(@Valid @RequestBody RegisterRequest request) {
+	public void register(@Valid @RequestBody RegisterRequest request) throws UserConflictException {
 		userService.register(request.getEmail(), request.getName(), request.getPassword());
 	}
 

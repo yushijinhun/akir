@@ -1,0 +1,43 @@
+configuration:
+  status: info
+  properties:
+    # log patterns are copied from spring boot
+    property:
+    - name: PID
+      value: '????'
+    - name: LOG_EXCEPTION_CONVERSION_WORD
+      value: '%xwEx'
+    - name: LOG_LEVEL_PATTERN
+      value: '%5p'
+    - name: CONSOLE_LOG_PATTERN
+      value: '%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}'
+    - name: FILE_LOG_PATTERN
+      value: '%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN} ${sys:PID} --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}'
+  appenders:
+    rollingFile:
+    - name: file-log-appender
+      patternLayout:
+        pattern: '${sys:FILE_LOG_PATTERN}'
+      fileName: 'logs/akir.log'
+      filePattern: 'logs/akir-%d{yyyy-MM-dd}-%i.log.gz'
+      policies:
+        timeBasedTriggeringPolicy: {}
+        onStartupTriggeringPolicy: {}
+        sizeBasedTriggeringPolicy:
+          size: 1MB
+    console:
+    - name: console-appender
+      patternLayout:
+        pattern: '${sys:CONSOLE_LOG_PATTERN}'
+      filters:
+        thresholdFilter:
+          level: info
+  loggers:
+    root:
+      level: info
+      appenderRef:
+      - ref: file-log-appender
+      - ref: console-appender
+    logger:
+    - name: org.to2mbn.akir.web.ErrorHandling
+      level: debug

@@ -2,7 +2,7 @@
 <#include "util/panel-page.ftl">
 
 <@page_head>
-	<meta name="_login_return_url" content="${login_return_url!home_page_url}"/>
+	<meta name="_login_return_url" content="${login_return_url!"/"}"/>
 	<#if login_tooltip??>
 		<meta name="_login_tooltip" content="${login_tooltip}"/>
 	</#if>
@@ -23,7 +23,7 @@
 	</div>
 	<div>
 		<button id="login-btn" class="btn btn-primary" type="submit">Login</button>
-		or <a href="register">register</a>
+		or <a href="/register">register</a>
 	</div>
 </form>
 </@panel_page>
