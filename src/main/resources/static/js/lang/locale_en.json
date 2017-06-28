@@ -1,0 +1,24 @@
+{
+	"metadata.lang":"en",
+
+	"user.email":"Email",
+	"user.name":"Name",
+	"user.password":"Password",
+
+	"action.login":"Login",
+	"action.register":"Register",
+
+	"login.panel_title":"Login to {0}",
+	"login.register_action":"register",
+
+	"register.panel_title":"Create a new account",
+	"register.confirm_password":"Confirm Password",
+	"register.login_action":"login",
+	"register.error.email_conflict":"Email is already in use",
+	"register.error.name_conflict":"Name is already in use",
+	"register.tooltip.password_minlength":"Minimum of 6 characters",
+	"register.tooltip.password_mismatch":"Passwords don't match",
+
+	"login_register.or_choose":"or"
+
+}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class Application {
 	private static final String DEFAULT_CONFIG_PATH = "/default-application.yaml";
 
 	public static void main(String[] args) {
+		Locale.setDefault(Locale.ENGLISH);
 		if (doesConfigExist()) {
 			SpringApplication.run(Application.class, args);
 		} else {

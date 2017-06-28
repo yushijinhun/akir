@@ -3,57 +3,57 @@
 <#include "util/form.ftl">
 
 <@page_head>
-	<@title "Register"/>
+	<@title><@msg "action.register"/></@>
 	<@css "/css/panel-page.css"/>
-</@page_head>
+</@>
 
 <@panel_page>
-<@panel_title>Create a new account</@panel_title>
+<@panel_title><@msg "register.panel_title"/></@>
 <form id="register-form" data-toggle="validator">
 	<div class="form-group has-feedback">
-		<label for="email">Email</label>
-		<input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus
-			maxlength="254"
+		<label for="email"><@msg "user.email"/></label>
+		<input type="email" id="email" name="email" class="form-control" placeholder="<@msg "user.email"/>" required autofocus
+			maxlength="${email_maxlength?c}"
 			data-remote="<@url "/register/validate/email"/>"
-			data-remote-error="Email is already in use">
+			data-remote-error="<@msg "register.error.email_conflict"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
 	</div>
 	<div class="form-group has-feedback">
-		<label for="name">Name</label>
-		<input type="text" id="name" name="name" class="form-control" placeholder="Name" autocomplete="off" required
-			maxlength="254"
-			pattern="[a-zA-Z]([-_]?[a-zA-Z0-9]+)*"
+		<label for="name"><@msg "user.name"/></label>
+		<input type="text" id="name" name="name" class="form-control" placeholder="<@msg "user.name"/>" autocomplete="off" required
+			maxlength="${name_maxlength?c}"
+			pattern="${name_regex}"
 			data-remote="<@url "/register/validate/name"/>"
-			data-remote-error="Name is already in use">
+			data-remote-error="<@msg "register.error.name_conflict"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
 	</div>
 	<div class="form-group has-feedback">
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password" class="form-control" placeholder="Password" required
-			maxlength="256"
-			data-minlength="6">
+		<label for="password"><@msg "user.password"/></label>
+		<input type="password" id="password" name="password" class="form-control" placeholder="<@msg "user.password"/>" required
+			maxlength="${password_maxlength?c}"
+			data-minlength="${password_minlength?c}">
 		<@form_feedback_icon/>
-		<@form_helper>Minimum of 6 characters</@form_helper>
+		<@form_helper><@msg "register.tooltip.password_minlength"/></@>
 	</div>
 	<div class="form-group has-feedback">
-		<label for="confirm-password">Confirm Password</label>
-		<input type="password" id="confirm-password" class="form-control" placeholder="Confirm Password" required
+		<label for="confirm-password"><@msg "register.confirm_password"/></label>
+		<input type="password" id="confirm-password" class="form-control" placeholder="<@msg "register.confirm_password"/>" required
 			data-match="#password"
-			data-match-error="Passwords don't match">
+			data-match-error="<@msg "register.tooltip.password_mismatch"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
 	</div>
 	<div>
-		<button id="register-btn" class="btn btn-primary" type="submit">Register</button>
-		or <a href="/login">login</a>
+		<button id="register-btn" class="btn btn-primary" type="submit"><@msg "action.register"/></button>
+		<@msg "login_register.or_choose"/> <a href="/login"><@msg "register.login_action"/></a>
 	</div>
 </form>
-</@panel_page>
+</@>
 
 <@page_end>
 	<@ext_js js_bootstrap_validator/>
 	<@js "/js/panel-common.js"/>
 	<@js "/js/register.js"/>
-</@page_end>
+</@>

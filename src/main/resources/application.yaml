@@ -8,6 +8,8 @@ spring:
       strategy:
         content:
           enabled: true
+  datasource:
+    name: db
 security:
   ignored:
   - /css/**

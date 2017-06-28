@@ -6,29 +6,29 @@
 	<#if login_tooltip??>
 		<meta name="_login_tooltip" content="${login_tooltip}"/>
 	</#if>
-	<@title "Login"/>
+	<@title><@msg "action.login"/></@>
 	<@css "/css/panel-page.css"/>
-</@page_head>
+</@>
 
 <@panel_page>
-<@panel_title>Login to ${akir_server.name}</@panel_title>
+<@panel_title><@msg key="login.panel_title" args=[akir_server.name]/></@>
 <form id="login-form">
 	<div class="form-group">
-		<label for="email">Email</label>
-		<input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+		<label for="email"><@msg "user.email"/></label>
+		<input type="email" id="email" name="email" class="form-control" placeholder="<@msg "user.email"/>" required autofocus>
 	</div>
 	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+		<label for="password"><@msg "user.password"/></label>
+		<input type="password" id="password" name="password" class="form-control" placeholder="<@msg "user.password"/>" required>
 	</div>
 	<div>
-		<button id="login-btn" class="btn btn-primary" type="submit">Login</button>
-		or <a href="/register">register</a>
+		<button id="login-btn" class="btn btn-primary" type="submit"><@msg "action.login"/></button>
+		<@msg "login_register.or_choose"/> <a href="/register"><@msg "login.register_action"/></a>
 	</div>
 </form>
-</@panel_page>
+</@>
 
 <@page_end>
 	<@js "/js/panel-common.js"/>
 	<@js "/js/login.js"/>
-</@page_end>
+</@>
