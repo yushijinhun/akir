@@ -52,4 +52,8 @@ nbproject/
 # maven
 target/
 
+# vim
 *~
+
+# tomcat
+work/

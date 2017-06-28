@@ -26,12 +26,15 @@ configuration:
         sizeBasedTriggeringPolicy:
           size: 1MB
     console:
-    - name: console-appender
+    - name: filtered-console-appender
       patternLayout:
         pattern: '${sys:CONSOLE_LOG_PATTERN}'
       filters:
         thresholdFilter:
           level: info
+    - name: console-appender
+      patternLayout:
+        pattern: '${sys:CONSOLE_LOG_PATTERN}'
   loggers:
     root:
       level: info
@@ -41,3 +44,7 @@ configuration:
     logger:
     - name: org.to2mbn.akir.web.ErrorHandling
       level: debug
+      additivity: false
+      appenderRef:
+      - ref: file-log-appender
+      - ref: filtered-console-appender

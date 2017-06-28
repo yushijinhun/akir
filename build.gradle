@@ -1,3 +1,10 @@
+group = 'org.to2mbn'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
 buildscript {
 	repositories {
 		jcenter()
@@ -7,15 +14,6 @@ buildscript {
 	dependencies {
 		classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT'
 	}
-}
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-jar {
-	baseName = 'akir'
-	version = '0.0.1-SNAPSHOT'
 }
 
 repositories {
@@ -45,4 +43,15 @@ dependencies {
 
 bootJar {
 	mainClass = 'org.to2mbn.akir.Application'
+	manifest {
+		attributes(
+			'Main-Class': 'org.springframework.boot.loader.PropertiesLauncher',
+			'Implementation-Title': project.name,
+			'Implementation-Version': project.version
+		)
+	}
+}
+
+springBoot {
+	buildInfo()
 }

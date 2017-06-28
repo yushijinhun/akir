@@ -1,18 +1,31 @@
 server:
+
   # HTTP服务端口号
   port: 8080
+
 spring:
+
+  # 数据库配置
+  # 注意:
+  #   mysql驱动默认已经包含在了akir中.
+  #   如果需要使用其它数据库, 请将数据库驱动放在./libs目录下.
   datasource:
+
     # 数据库驱动
-    # 如果使用其它数据库，则要修改此项，并在classpath内加入对应的驱动
-    driver-class-name: com.mysql.jdbc.Driver
+    # 默认由spring自动检测，自定义请将下行uncomment
+    # driver-class-name: com.mysql.jdbc.Driver
+
     # 数据库地址
     url: 'jdbc:mysql://localhost/akir?verifyServerCertificate=false&useSSL=true'
+
     # 数据库用户名
     username: akir
+
     # 数据库密码
     password: 123456
+
   mail:
+
     # 发送验证邮件使用的邮箱配置
     host: example.com
     port: 587
@@ -21,13 +34,18 @@ spring:
     password: 123456
     properties:
       mail.smtp.starttls.enable: true
+
 akir-server:
+
   # 服务器名称
   name: akir
+
   # 能访问到该服务端的URL
   url: http://localhost:8080/
+
   # 是否要求注册时验证邮箱
   require-email-verfied: true
+
   # 发送验证邮件的邮箱
   # 默认同spring.mail.username，自定义请将下行uncomment
   # verify-email-sender: email@example.com

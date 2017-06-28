@@ -20,3 +20,12 @@ server:
     accesslog:
       enabled: true
       pattern: '%t %a "%r" %s (%D ms)'
+  compression:
+    enabled: true
+    mime-types:
+    - application/json
+    - application/xml
+    - text/html
+    - text/xml
+    - text/plain
+    - text/css
