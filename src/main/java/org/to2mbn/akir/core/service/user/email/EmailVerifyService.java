@@ -12,7 +12,7 @@ import org.to2mbn.akir.core.model.EmailVerifyCode;
 import org.to2mbn.akir.core.model.User;
 import org.to2mbn.akir.core.repository.EmailVerifyCodeRepository;
 import org.to2mbn.akir.core.repository.UserRepository;
-import org.to2mbn.akir.core.service.AkirConfig;
+import org.to2mbn.akir.core.service.AkirConfiguration;
 import org.to2mbn.akir.core.service.user.UserRegistrationEvent;
 
 @Component
@@ -30,7 +30,7 @@ public class EmailVerifyService {
 	private VerifyEmailSender verifyEmailSender;
 
 	@Autowired
-	private AkirConfig config;
+	private AkirConfiguration config;
 
 	private RandomStringGenerator codeGenerator;
 
@@ -58,6 +58,7 @@ public class EmailVerifyService {
 	}
 
 	public void sendVerifyEmail(User user) {
+		// TODO: rate limit
 		if (user.isEmailVerified())
 			throw new IllegalStateException("Email already verified");
 
@@ -80,7 +81,7 @@ public class EmailVerifyService {
 		EmailVerifyCode verifyCode = repository.findById(email)
 				.orElseThrow(() -> new WrongVerifyCodeException("Verify code not exists"));
 		if (System.currentTimeMillis() > verifyCode.getAvailableBefore())
-			throw new VerifyCodeExpiredException("Verify code has been expired, please resend");
+			throw new VerifyCodeExpiredException("Verify code has been expired");
 		if (!verifyCode.getCode().equals(code))
 			throw new WrongVerifyCodeException("Wrong verify code");
 
@@ -93,7 +94,8 @@ public class EmailVerifyService {
 
 	private void renewVerifyCode(EmailVerifyCode verifyCode) {
 		verifyCode.setCode(codeGenerator.generate(codeLength));
-		verifyCode.setAvailableBefore(System.currentTimeMillis() + availableTime);
+		verifyCode.setSendTime(System.currentTimeMillis());
+		verifyCode.setAvailableBefore(verifyCode.getSendTime() + availableTime);
 	}
 
 }

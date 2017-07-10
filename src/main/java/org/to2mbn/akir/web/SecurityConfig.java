@@ -1,8 +1,10 @@
 package org.to2mbn.akir.web;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+import static org.to2mbn.akir.web.util.WebUtils.ERROR_ATTRIBUTE;
 import static org.to2mbn.akir.web.util.WebUtils.isAjax;
+import static org.to2mbn.akir.web.util.exception.ErrorMessage.E_ACCESS_DENIED;
 import java.util.Optional;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/css/**", "/images/**", "/js/**", "/favicon.ico",
 
 						// == login/register/email_verify -> permit all
-						"/register/**", "/login", "/email_verify/do_verify"
+						"/register/**", "/login", "/email_verify/do_verify",
+
+						// == error page -> permit all
+						"/error"
 
 				).permitAll()
 				.antMatchers(
@@ -65,7 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 							return;
 						}
 					}
-					response.sendError(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
+					request.setAttribute(ERROR_ATTRIBUTE, ex);
+					response.sendError(SC_FORBIDDEN, E_ACCESS_DENIED);
 				})
 				.and()
 

@@ -1,24 +1,46 @@
 {
 	"metadata.lang":"en",
 
+	"error.internal_server_error":"An error occurred while processing your request.",
+	"error.access_denied":"You have no access to this page.",
+
+	"error.ajax.network":"Unable to connect to server.",
+	"error.ajax.unknown":"An error occurred while sending the request.",
+
+	"error_page.error_code":"Error code:{0}",
+
 	"user.email":"Email",
 	"user.name":"Name",
 	"user.password":"Password",
 
 	"action.login":"Login",
 	"action.register":"Register",
+	"action.verify_email":"Verify your email",
+	"action.resend_email":"Resend",
 
 	"login.panel_title":"Login to {0}",
 	"login.register_action":"register",
+	"login.error.invalid_credentials":"Incorrect email or password.",
 
 	"register.panel_title":"Create a new account",
 	"register.confirm_password":"Confirm Password",
 	"register.login_action":"login",
 	"register.error.email_conflict":"Email is already in use",
 	"register.error.name_conflict":"Name is already in use",
+	"register.error.conflict":"The identity conflicts with another user.",
 	"register.tooltip.password_minlength":"Minimum of 6 characters",
 	"register.tooltip.password_mismatch":"Passwords don't match",
 
-	"login_register.or_choose":"or"
+	"login_register.or_choose":"or",
 
+	"email_verify.success":"Your email has been verified.",
+	"email_verify.error.already_verified":"Your email has already been verified.",
+	"email_verify.error.code_expired":"Your verification code has expired, please login and resend it.",
+	"email_verify.error.wrong_code":"Your verification code is wrong, please login and resend it.",
+	"email_verify.error.unknown":"Your email couldn't be verified.",
+
+	"verify_email.panel_title":"Verify your email address",
+	"verify_email.text":"A verification email has been sent to '{1}'. Please check email to verify the address in 8 hours.",
+	"verify_email.resend_tips":"If you haven't received the email, please click on the button below to resend it.",
+	"verify_email.resend.success":"A verification email is being sent to your email."
 }

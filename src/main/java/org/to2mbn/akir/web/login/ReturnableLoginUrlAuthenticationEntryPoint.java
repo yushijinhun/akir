@@ -1,5 +1,9 @@
 package org.to2mbn.akir.web.login;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+import static org.to2mbn.akir.web.util.WebUtils.ERROR_ATTRIBUTE;
+import static org.to2mbn.akir.web.util.WebUtils.isAjax;
+import static org.to2mbn.akir.web.util.exception.ErrorMessage.E_ACCESS_DENIED;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.RedirectUrlBuilder;
 import org.springframework.stereotype.Component;
-import org.to2mbn.akir.core.service.AkirConfig;
+import org.to2mbn.akir.core.service.AkirConfiguration;
 import org.to2mbn.akir.web.util.OneTimeCookie;
 
 @Component
@@ -18,7 +22,7 @@ public class ReturnableLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenti
 	public static final String LOGIN_RETURN_URL = "login_return_url";
 
 	@Autowired
-	private AkirConfig config;
+	private AkirConfiguration config;
 
 	public ReturnableLoginUrlAuthenticationEntryPoint() {
 		super("/login");
@@ -26,8 +30,13 @@ public class ReturnableLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenti
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-		OneTimeCookie.put(response, LOGIN_RETURN_URL, buildReturnUrl(request));
-		super.commence(request, response, authException);
+		if (isAjax(request)) {
+			request.setAttribute(ERROR_ATTRIBUTE, authException);
+			response.sendError(SC_FORBIDDEN, E_ACCESS_DENIED);
+		} else {
+			OneTimeCookie.put(response, LOGIN_RETURN_URL, buildReturnUrl(request));
+			super.commence(request, response, authException);
+		}
 	}
 
 	private String buildReturnUrl(HttpServletRequest request) {

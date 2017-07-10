@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.to2mbn.akir.core.model.EmailVerifyCode;
 import org.to2mbn.akir.core.model.User;
-import org.to2mbn.akir.core.service.AkirConfig;
+import org.to2mbn.akir.core.service.AkirConfiguration;
 import freemarker.template.Configuration;
 
 @Component
@@ -34,12 +34,12 @@ public class VerifyEmailSender {
 	private Configuration fmConfig;
 
 	@Autowired
-	private AkirConfig config;
+	private AkirConfiguration config;
 
 	@Autowired
 	private MailProperties mailProperties;
 
-	@Async
+	@Async("emailExecutor")
 	public void sendEmail(EmailVerifyCode code, User user) {
 		LOGGER.info("Sending verify email to {}", user.getEmail());
 		try {

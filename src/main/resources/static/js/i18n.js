@@ -1,28 +1,30 @@
-var lang={};
-
-$(function(){
-	var jsonLocation=$("meta[name='_lang_json']").attr("content");
-	$.ajax({
-		url:jsonLocation,
-		type:'GET',
-		success:function(result){
-			if(!(result instanceof Object)){
-				console.error('Could not load lang json',jsonLocation,':',result);
-				return;
-			}
-			lang=result;
-		},
-		error:function(err){
-			console.error('Could not load lang json',jsonLocation,', error:',err);
-		}
-	});
+if (!String.prototype.format) {
+  String.prototype.format = () => {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, (match, number) => {
+      return args[number] === undefined ? match : args[number];
+    });
+  };
+}
+$(() => {
+  var langData = {};
+  $.getJSON($('meta[name=\'_lang_json\']').attr('content')).done(result => {
+    if (result instanceof Object) {
+      langData = result;
+    } else {
+      console.error('Could not load lang data');
+    }
+  }).fail(() => console.error('Could not load lang data')).always(() => {
+    window.msg = (key, ...args) => {
+      var localized = langData[key];
+      if (localized === undefined) return key;
+      if (!args.length) return localized;
+      return localized.format(args);
+    };
+    $(document).trigger('lang-ready');
+  });
 });
 
-function msg(key){
-	var value=lang[key];
-	if(value===undefined){
-		console.warn('Missing i18n key:',key);
-		return key;
-	}
-	return value;
+function localizeError(err){
+	return msg(err.details===undefined?err.error:err.details);
 }

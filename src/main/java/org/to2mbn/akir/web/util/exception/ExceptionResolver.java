@@ -1,5 +1,9 @@
 package org.to2mbn.akir.web.util.exception;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static org.to2mbn.akir.web.util.exception.ErrorMessage.E_ACCESS_DENIED;
+import static org.to2mbn.akir.web.util.exception.ErrorMessage.E_INTERNAL_SERVER_ERROR;
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,24 +21,16 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionResolver.class);
 
-	private static boolean isChecked(Throwable ex) {
-		return ex instanceof Exception && !(ex instanceof RuntimeException);
-	}
-
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		try {
-			if (isChecked(ex)) {
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+			if (ex instanceof AccessDeniedException) {
+				response.sendError(SC_FORBIDDEN, E_ACCESS_DENIED);
 			} else {
-				if (ex instanceof AccessDeniedException) {
-					response.sendError(HttpServletResponse.SC_FORBIDDEN, "access_denied");
-				} else {
-					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "internal_server_error");
-				}
+				response.sendError(SC_INTERNAL_SERVER_ERROR, E_INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
-			LOGGER.warn("Handling of [" + ex.getClass().getName() + "] resulted in Exception", e);
+			LOGGER.warn("Handling of [{}] resulted in Exception", ex.getClass().getName(), e);
 		}
 		return new ModelAndView();
 	}

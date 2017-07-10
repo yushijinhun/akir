@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties("akir-server")
-public class AkirConfig {
+public class AkirConfiguration {
 
 	private String name;
 	private boolean requireEmailVerfied;

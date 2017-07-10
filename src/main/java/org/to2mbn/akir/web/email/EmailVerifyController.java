@@ -26,9 +26,9 @@ public class EmailVerifyController {
 		String message;
 		try {
 			emailVerifyService.verifyEmail(email, code);
-			message = "email_verified";
+			message = "email_verify.success";
 		} catch (EmailVerifyException e) {
-			message = getResponseStatus(e).map(ResponseStatus::reason).orElse("email_wrong_verify_code");
+			message = getResponseStatus(e).map(ResponseStatus::reason).orElse("email_verify.error.unknown");
 		}
 		OneTimeCookie.put(response, LOGIN_TOOLTIP, message);
 		return "redirect:/login";

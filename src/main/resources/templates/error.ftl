@@ -5,15 +5,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<@title>${error.error}</@>
 		<@ext_css css_bootstrap/>
 	</head>
 	<body>
 		<div class="container">
 
 <h2>${error.error}</h2>
-<p>Error code: ${error.code}</p>
+<p><@msg key="error_page.error_code" args=[error.code?c]/></p>
 <#if error.details??>
-<p>${error.details}</p>
+<p><@msg error.details/></p>
 </#if>
 
 		</div>

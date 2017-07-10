@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 public class ErrorMessage {
 
+	public static final String E_INTERNAL_SERVER_ERROR = "error.internal_server_error";
+	public static final String E_ACCESS_DENIED = "error.access_denied";
+
 	private String error;
 	private int code;
 

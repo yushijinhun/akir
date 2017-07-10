@@ -1,21 +1,10 @@
-$(function(){
+$(() => {
 	ajaxForm({
-		form:$('#register-form'),
-		url:'/register',
-		success:function(){
-			$(location).attr('href','/');
-		},
-		error:function(err){
-			show_alert('danger',err.error);
-		},
-		before:function(){
-			close_alert();
-			$('#register-btn').prop('disabled',true);
-			$('#register-btn').text('Register...');
-		},
-		after:function(){
-			$('#register-btn').prop('disabled',false);
-			$('#register-btn').text('Register');
-		}
+		form : $('#register-form'),
+		url : '/register',
+		success : () => $(location).attr('href', '/'),
+		error : err => show_alert('danger', localizeError(err)),
+		before : () => buttonLoading($('#register-btn'),true),
+		after : () => buttonLoading($('#register-btn'),false)
 	});
 });

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
@@ -35,6 +36,14 @@ public class JsonMessageSource extends ReloadableResourceBundleMessageSource {
 
 	private void addMetadata(String filename, Map<String, String> properties) {
 		extractLocale(filename).ifPresent(locale -> properties.put("metadata.locale", locale));
+	}
+
+	private void process(Map<String, String> properties) {
+		// tricks here: we don't want MessageFormat to escape our '
+		// so use double ' here
+		Map<String, String> copy = new LinkedHashMap<>(properties);
+		properties.clear();
+		copy.forEach((k, v) -> properties.put(k, v.replace("'", "''")));
 	}
 
 	private Optional<String> extractLocale(String filename) {
@@ -98,6 +107,7 @@ public class JsonMessageSource extends ReloadableResourceBundleMessageSource {
 			result = objectMapper.readValue(in, objectMapper.constructType(TYPE_STRING_MAP));
 		}
 		addMetadata(filename, result);
+		process(result);
 		Properties properties = new Properties();
 		properties.putAll(result);
 		return properties;

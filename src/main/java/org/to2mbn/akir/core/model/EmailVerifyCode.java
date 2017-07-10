@@ -13,6 +13,7 @@ public class EmailVerifyCode {
 	@Column(nullable = false)
 	private String code;
 
+	private long sendTime;
 	private long availableBefore;
 
 	public String getEmail() {
@@ -29,6 +30,14 @@ public class EmailVerifyCode {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public long getSendTime() {
+		return sendTime;
+	}
+
+	public void setSendTime(long sendTime) {
+		this.sendTime = sendTime;
 	}
 
 	public long getAvailableBefore() {
