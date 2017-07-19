@@ -23,7 +23,7 @@
 	</div>
 	<div>
 		<button id="login-btn" class="btn btn-primary" type="submit"><@msg "action.login"/></button>
-		<@msg "login_register.or_choose"/> <a href="/register"><@msg "login.register_action"/></a>
+		<@msg "login_register.or_choose"/> <a href="${url("/register")}"><@msg "login.register_action"/></a>
 	</div>
 </form>
 </@>

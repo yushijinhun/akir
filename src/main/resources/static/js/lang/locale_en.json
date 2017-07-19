@@ -14,9 +14,17 @@
 	"user.password":"Password",
 
 	"action.login":"Login",
+	"action.logout":"Logout",
 	"action.register":"Register",
 	"action.verify_email":"Verify your email",
 	"action.resend_email":"Resend",
+
+	"tab.dashboard":"Dashboard",
+	"tab.marketplace":"Marketplace",
+	"tab.help":"Help",
+	"tab.settings":"Settings",
+
+	"nav.user.profile":"My profile",
 
 	"login.panel_title":"Login to {0}",
 	"login.register_action":"register",
@@ -30,6 +38,7 @@
 	"register.error.conflict":"The identity conflicts with another user.",
 	"register.tooltip.password_minlength":"Minimum of 6 characters",
 	"register.tooltip.password_mismatch":"Passwords don't match",
+	"register.success":"Registered successfully. Please login and verify your email address.",
 
 	"login_register.or_choose":"or",
 
@@ -42,5 +51,8 @@
 	"verify_email.panel_title":"Verify your email address",
 	"verify_email.text":"A verification email has been sent to '{1}'. Please check email to verify the address in 8 hours.",
 	"verify_email.resend_tips":"If you haven't received the email, please click on the button below to resend it.",
-	"verify_email.resend.success":"A verification email is being sent to your email."
+	"verify_email.resend.success":"A verification email is being sent to your email.",
+
+	"logout.message":"Click on the button below to logout.",
+	"logout.error":"Unable to logout"
 }

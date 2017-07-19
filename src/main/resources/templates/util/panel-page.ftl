@@ -1,7 +1,9 @@
 <#macro panel_page>
-<div id="root-panel" class="panel panel-default">
-	<div class="panel-body">
-		<#nested>
+<div class="container">
+	<div id="root-panel" class="panel panel-default">
+		<div class="panel-body">
+			<#nested>
+		</div>
 	</div>
 </div>
 </#macro>

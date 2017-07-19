@@ -18,6 +18,7 @@ public class User {
 	private String passwordHash;
 
 	private boolean emailVerified;
+	private boolean admin;
 
 	public String getEmail() {
 		return email;
@@ -49,6 +50,14 @@ public class User {
 
 	public void setEmailVerified(boolean emailVerified) {
 		this.emailVerified = emailVerified;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

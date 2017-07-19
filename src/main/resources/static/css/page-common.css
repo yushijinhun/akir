@@ -1,0 +1,35 @@
+html, body {
+	height: 100%;
+}
+
+.page-content {
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
+}
+
+#navbar-user-icon {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+#navbar-user-icon>img {
+	border-radius: 50%;
+}
+
+.page-footer {
+	height: 60px;
+}
+
+.page-footer>.container {
+	width: 100%;
+}
+
+.page-footer hr {
+	margin-bottom: 10px;
+}
+
+.modal-danger .modal-header {
+	color: #a94442;
+}

@@ -8,7 +8,7 @@
 
 <@panel_page>
 <@panel_title><@msg "verify_email.panel_title"/></@>
-<p><@msg key="verify_email.text" args=[user.getName(),user.email]/></p>
+<p><@msg key="verify_email.text" args=[login_user.name,login_user.email]/></p>
 <p><@msg "verify_email.resend_tips"/></p>
 <button id="resend-btn" class="btn btn-primary"><@msg "action.resend_email"/></button>
 </@>

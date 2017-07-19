@@ -6,19 +6,17 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<@title>${error.error}</@>
-		<@ext_css css_bootstrap/>
+		<@css css_bootstrap/>
 	</head>
 	<body>
 		<div class="container">
-
-<h2>${error.error}</h2>
-<p><@msg key="error_page.error_code" args=[error.code?c]/></p>
-<#if error.details??>
-<p><@msg error.details/></p>
-</#if>
-
+			<h2>${error.error}</h2>
+			<p><@msg key="error_page.error_code" args=[error.code?c]/></p>
+			<#if error.details??>
+				<p><@msg error.details/></p>
+			</#if>
 		</div>
-		<@ext_js js_jquery/>
-		<@ext_js js_bootstrap/>
+		<@js js_jquery/>
+		<@js js_bootstrap/>
 	</body>
 </html>

@@ -39,8 +39,7 @@ public class EmailVerifyController {
 		if (user.isEmailVerified())
 			return "redirect:/";
 
-		// TODO resend email view
-		return "resend_email";
+		return "resend-email";
 	}
 
 }

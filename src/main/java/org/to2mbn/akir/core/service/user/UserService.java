@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public static Optional<Authentication> getCurrentAuthentication() {
-		return Optional.of(SecurityContextHolder.getContext().getAuthentication());
+		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
 	}
 
 	@Autowired
@@ -127,6 +127,7 @@ public class UserService implements UserDetailsService {
 		user.setName(name);
 		user.setPasswordHash(passwordEncoder.encode(password));
 		user.setEmailVerified(false);
+		user.setAdmin(false);
 		user = repository.save(user);
 
 		LOGGER.info("User {} registered", user.getEmail());

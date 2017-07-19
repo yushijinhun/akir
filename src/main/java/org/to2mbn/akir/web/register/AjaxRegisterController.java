@@ -1,5 +1,6 @@
 package org.to2mbn.akir.web.register;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.to2mbn.akir.core.repository.UserRepository;
 import org.to2mbn.akir.core.service.user.UserConflictException;
 import org.to2mbn.akir.core.service.user.UserService;
+import org.to2mbn.akir.web.login.LoginController;
+import org.to2mbn.akir.web.util.OneTimeCookie;
 
 @RequestMapping("/register")
 @RestController
@@ -40,8 +43,9 @@ public class AjaxRegisterController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void register(@Valid @RequestBody RegisterRequest request) throws UserConflictException {
+	public void register(@Valid @RequestBody RegisterRequest request, HttpServletResponse response) throws UserConflictException {
 		userService.register(request.getEmail(), request.getName(), request.getPassword());
+		OneTimeCookie.put(response, LoginController.LOGIN_TOOLTIP, "register.success");
 	}
 
 }

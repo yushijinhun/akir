@@ -12,7 +12,7 @@ $(() => {
 		var tooltipMeta = $("meta[name='_login_tooltip']");
 		if (tooltipMeta.length) {
 			var tooltip = tooltipMeta.attr('content');
-			show_alert(tooltip === 'email_verify.success' ? 'success' : 'danger', msg(tooltip));
+			show_alert(tooltip === 'email_verify.success'||tooltip==='register.success' ? 'success' : 'danger', msg(tooltip));
 		}
 	});
 });

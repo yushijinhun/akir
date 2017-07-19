@@ -7,11 +7,8 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController // TODO: to be removed
 public class Application {
 
 	private static final String CONFIG_PATH = "application.yaml";
@@ -49,11 +46,4 @@ public class Application {
 			return false;
 		}
 	}
-
-	// TODO: to be removed
-	@RequestMapping("/")
-	public String index() {
-		return "hi";
-	}
-
 }

@@ -14,7 +14,7 @@
 		<label for="email"><@msg "user.email"/></label>
 		<input type="email" id="email" name="email" class="form-control" placeholder="<@msg "user.email"/>" required autofocus
 			maxlength="${email_maxlength?c}"
-			data-remote="<@url "/register/validate/email"/>"
+			data-remote="${url("/register/validate/email")}"
 			data-remote-error="<@msg "register.error.email_conflict"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
@@ -24,7 +24,7 @@
 		<input type="text" id="name" name="name" class="form-control" placeholder="<@msg "user.name"/>" autocomplete="off" required
 			maxlength="${name_maxlength?c}"
 			pattern="${name_regex}"
-			data-remote="<@url "/register/validate/name"/>"
+			data-remote="${url("/register/validate/name")}"
 			data-remote-error="<@msg "register.error.name_conflict"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
@@ -47,13 +47,13 @@
 	</div>
 	<div>
 		<button id="register-btn" class="btn btn-primary" type="submit"><@msg "action.register"/></button>
-		<@msg "login_register.or_choose"/> <a href="/login"><@msg "register.login_action"/></a>
+		<@msg "login_register.or_choose"/> <a href="${url("/login")}"><@msg "register.login_action"/></a>
 	</div>
 </form>
 </@>
 
 <@page_end>
-	<@ext_js js_bootstrap_validator/>
+	<@js js_bootstrap_validator/>
 	<@js "/js/panel-common.js"/>
 	<@js "/js/register.js"/>
 </@>

@@ -1,9 +1,10 @@
 package org.to2mbn.akir.core.service.user;
 
+import static java.util.Collections.unmodifiableCollection;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,8 +19,8 @@ public class AkirUserDetails implements UserDetails {
 	private Function<String, Optional<User>> userAccessor;
 	private String userId;
 
-	private static final Set<GrantedAuthority> AUTHORITIES_UNVERIFIED = Collections.emptySet();
-	private static final Set<GrantedAuthority> AUTHORITIES_VERIFIED = Collections.singleton(new SimpleGrantedAuthority("ROLE_VERIFIED"));
+	private static final GrantedAuthority ROLE_VERIFIED = new SimpleGrantedAuthority("ROLE_VERIFIED");
+	private static final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority("ROLE_ADMIN");
 
 	public AkirUserDetails(Function<String, Optional<User>> userAccessor, String userId) {
 		this.userAccessor = userAccessor;
@@ -28,7 +29,13 @@ public class AkirUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return getUserModel().isEmailVerified() ? AUTHORITIES_VERIFIED : AUTHORITIES_UNVERIFIED;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		User user = getUserModel();
+		if (user.isEmailVerified())
+			authorities.add(ROLE_VERIFIED);
+		if (user.isAdmin())
+			authorities.add(ROLE_ADMIN);
+		return unmodifiableCollection(authorities);
 	}
 
 	@Override

@@ -26,5 +26,5 @@ $(() => {
 });
 
 function localizeError(err){
-	return msg(err.details===undefined?err.error:err.details);
+	return msg((err.details===undefined||err.details==='No message available')?err.error:err.details);
 }
