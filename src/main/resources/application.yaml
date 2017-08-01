@@ -18,6 +18,7 @@ security:
   - /css/**
   - /js/**
   - /images/**
+  - /yggdrasil/**
   - /favicon.ico
 server:
   tomcat:

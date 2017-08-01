@@ -49,3 +49,6 @@ akir-server:
   # 发送验证邮件的邮箱
   # 默认同spring.mail.username，自定义请将下行uncomment
   # verify-email-sender: email@example.com
+
+  # 存放皮肤/披风文件的目录
+  textures-storage: textures

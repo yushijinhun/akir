@@ -6,7 +6,7 @@
 	"tab.help":"/help"
 }>
 
-<#macro top_navbar current_tab>
+<#macro top_navbar current_tab="">
 <nav class="navbar navbar-default navbar-static-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -27,21 +27,28 @@
 					</#if>
 				</#list>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a id="navbar-user-icon" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<@gravatar_img user=login_user size=40/>
-						${login_user.name}
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="${user_profile_url(login_user)}"><@msg "nav.user.profile"/></a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="${url("/settings")}"><@msg "tab.settings"/></a></li>
-						<li><a id="logout-link" href="#"><@msg "action.logout"/></a></li>
-					</ul>
-				</li>
-			</ul>
+			<div class="navbar-right">
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a id="navbar-user-icon" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<@gravatar_img user=login_user size=40/>
+							${login_user.name}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="${user_profile_url(login_user)}"><@msg "nav.user.profile"/></a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="${url("/settings")}"><@msg "tab.settings"/></a></li>
+							<li><a id="logout-link" href="#"><@msg "action.logout"/></a></li>
+						</ul>
+					</li>
+				</ul>
+				<form id="navbar-search-form" class="navbar-form" role="search">
+					<div class="form-group">
+						<input id="navbar-search-box" type="text" class="form-control" placeholder="<@msg "action.search"/>">
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </nav>
@@ -56,7 +63,7 @@
 </div>
 </#macro>
 
-<#macro page_body current_tab>
+<#macro page_body current_tab="">
 <div class="page-content">
 	<@top_navbar current_tab/>
 	<div class="container">

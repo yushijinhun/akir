@@ -1,7 +1,6 @@
 package org.to2mbn.akir.web.util.exception;
 
 import static org.to2mbn.akir.web.util.WebUtils.isAjax;
-import static org.to2mbn.akir.web.util.WebUtils.getRelativePath;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Optional;
@@ -42,7 +41,7 @@ public class ErrorController implements org.springframework.boot.autoconfigure.w
 				request.getRemoteAddr(),
 				Optional.ofNullable(request.getSession(false)).map(HttpSession::getId).orElse(null),
 				UserService.getCurrentAuthentication().map(Authentication::getPrincipal).orElse(null),
-				getRelativePath(request));
+				request.getAttribute("javax.servlet.error.request_uri"));
 		Throwable ex = errorAttributes.getError(req);
 		if (code >= 500 && code <= 599) {
 			// it's a server internal error

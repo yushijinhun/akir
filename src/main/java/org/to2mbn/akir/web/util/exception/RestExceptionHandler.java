@@ -3,11 +3,11 @@ package org.to2mbn.akir.web.util.exception;
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.core.Ordered;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(annotations = { RestController.class })
+@ControllerAdvice(annotations = { RestController.class })
 @Priority(Ordered.HIGHEST_PRECEDENCE)
 public class RestExceptionHandler {
 

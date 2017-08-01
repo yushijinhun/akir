@@ -12,3 +12,6 @@
 
 <#-- bootstrap-validator -->
 <#assign js_bootstrap_validator        = "https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js">
+
+<#-- font-awesome -->
+<#assign css_font_awesome              = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

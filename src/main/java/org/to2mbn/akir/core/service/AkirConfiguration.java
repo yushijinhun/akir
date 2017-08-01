@@ -1,6 +1,7 @@
 package org.to2mbn.akir.core.service;
 
 import java.net.URI;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.web.util.RedirectUrlBuilder;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ public class AkirConfiguration {
 	private boolean requireEmailVerfied;
 	private String url;
 	private String verifyEmailSender;
+	private String texturesStorage;
 
 	public String getName() {
 		return name;
@@ -44,6 +46,14 @@ public class AkirConfiguration {
 
 	public void setVerifyEmailSender(String verifyEmailSender) {
 		this.verifyEmailSender = verifyEmailSender;
+	}
+
+	public String getTexturesStorage() {
+		return texturesStorage;
+	}
+
+	public void setTexturesStorage(String texturesStorage) {
+		this.texturesStorage = texturesStorage;
 	}
 
 	public RedirectUrlBuilder rootUrl() {

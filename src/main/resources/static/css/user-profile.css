@@ -1,0 +1,83 @@
+.vcard-col, .vcard-content {
+	width: 230px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.avatar-profile-col>img {
+	border-radius: 6px;
+}
+
+.vcard-name {
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: 600;
+	margin-bottom: 12px;
+	margin-top: 12px;
+}
+
+.vcard-details {
+	list-style: none;
+	padding-left: 0;
+}
+
+.vcard-details>li>.fa {
+	color: #6a737d;
+	width: 16px;
+}
+
+.character-list {
+	width: 100%;
+	list-style: none;
+	padding: 0;
+}
+
+.character-list>li {
+	padding: 24px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.character-list>li:last-child {
+	border-bottom: none;
+}
+
+.character-list>li a {
+	text-decoration: none;
+}
+
+.character-list>li>* {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.character-list>li .character-avatar {
+	width: 54px;
+	height: 54px;
+	margin-right: 10px;
+}
+
+.no-character-tip {
+	margin-top: 24px;
+	margin-left: 10px;
+}
+
+.character-model-steve {
+	color: #2294d3;
+}
+
+.character-model-alex {
+	color: #ff69b4;
+}
+
+.character-model .fa {
+	font-weight: 600;
+}
+
+@media ( max-width :767px) {
+	.vcard-col {
+		width: 100%;
+	}
+	.vcard-details {
+		margin-top: 12px;
+	}
+}

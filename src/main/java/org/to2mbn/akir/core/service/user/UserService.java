@@ -1,5 +1,6 @@
 package org.to2mbn.akir.core.service.user;
 
+import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
@@ -54,6 +55,14 @@ public class UserService implements UserDetailsService {
 
 	public static Optional<Authentication> getCurrentAuthentication() {
 		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
+	}
+
+	public static boolean hasAuthority(String authority) {
+		requireNonNull(authority);
+		return getCurrentAuthentication()
+				.map(auth -> auth.getAuthorities().stream()
+						.anyMatch(p -> authority.equals(p.getAuthority())))
+				.orElse(false);
 	}
 
 	@Autowired
@@ -128,6 +137,7 @@ public class UserService implements UserDetailsService {
 		user.setPasswordHash(passwordEncoder.encode(password));
 		user.setEmailVerified(false);
 		user.setAdmin(false);
+		user.setRegisterTime(System.currentTimeMillis());
 		user = repository.save(user);
 
 		LOGGER.info("User {} registered", user.getEmail());

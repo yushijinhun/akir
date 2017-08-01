@@ -18,14 +18,14 @@ public class LoginController {
 
 	@GetMapping
 	public String loginPage(ModelMap model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
-		if (principal != null)
-			return "redirect:/";
-
 		OneTimeCookie.consume(request, response, LOGIN_RETURN_URL)
 				.ifPresent(returnUrl -> model.addAttribute("login_return_url", returnUrl));
 
 		OneTimeCookie.consume(request, response, LOGIN_TOOLTIP)
 				.ifPresent(tooltip -> model.addAttribute("login_tooltip", tooltip));
+
+		if (principal != null)
+			return "redirect:/";
 
 		return "login";
 	}

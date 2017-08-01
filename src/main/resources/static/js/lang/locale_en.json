@@ -7,24 +7,29 @@
 	"error.ajax.network":"Unable to connect to server.",
 	"error.ajax.unknown":"An error occurred while sending the request.",
 
-	"error_page.error_code":"Error code:{0}",
+	"error_page.error_code":"Error code: {0}",
 
 	"user.email":"Email",
 	"user.name":"Name",
 	"user.password":"Password",
+	"user.not_found":"No such user",
+
+	"character.model.steve":"Steve",
+	"character.model.alex":"Alex",
 
 	"action.login":"Login",
 	"action.logout":"Logout",
 	"action.register":"Register",
 	"action.verify_email":"Verify your email",
 	"action.resend_email":"Resend",
+	"action.search":"Search",
 
 	"tab.dashboard":"Dashboard",
 	"tab.marketplace":"Marketplace",
 	"tab.help":"Help",
 	"tab.settings":"Settings",
 
-	"nav.user.profile":"My profile",
+	"nav.user.profile":"Profile",
 
 	"login.panel_title":"Login to {0}",
 	"login.register_action":"register",
@@ -54,5 +59,9 @@
 	"verify_email.resend.success":"A verification email is being sent to your email.",
 
 	"logout.message":"Click on the button below to logout.",
-	"logout.error":"Unable to logout"
+	"logout.error":"Unable to logout",
+
+	"user_details.joined_on":"Joined on",
+	"user_details.characters":"Characters",
+	"user_details.no_character":"No characters"
 }

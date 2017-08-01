@@ -10,11 +10,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyEnumerated;
+import org.hibernate.annotations.Type;
 
 @Entity
-public class GameProfile {
+public class GameCharacter {
 
 	@Id
+	@Type(type = "uuid-char")
 	private UUID uuid;
 
 	@Column(nullable = false)

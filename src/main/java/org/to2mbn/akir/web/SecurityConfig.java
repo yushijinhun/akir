@@ -45,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/register/**", "/login", "/email_verify/do_verify",
 
 						// == error page -> permit all
-						"/error"
+						"/error",
+
+						"/yggdrasil/**"
 
 				).permitAll()
 				.antMatchers(

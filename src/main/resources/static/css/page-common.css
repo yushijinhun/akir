@@ -33,3 +33,40 @@ html, body {
 .modal-danger .modal-header {
 	color: #a94442;
 }
+
+.character-avatar-img {
+	image-rendering: optimizeSpeed;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: pixelated;
+	image-rendering: optimize-contrast;
+}
+
+.character-avatar-img-head {
+	clip-path: inset(12.5% 75% 75% 12.5%);
+	transform: translate(calc(-100%/ 6 * 5), calc(-100%/ 6 * 5));
+}
+
+.character-avatar-img-helm {
+	clip-path: inset(12.5% 25% 75% 62.5%);
+	transform: translate(-500%, -100%);
+}
+
+.link-grey-dark {
+	color: #333;
+}
+
+.link-grey-dark:hover {
+	color: #23527c;
+	text-decoration: none;
+}
+
+@media ( min-width :768px) {
+	.navbar-right>.navbar-nav {
+		float: right;
+	}
+	.navbar-right>.navbar-form {
+		float: left;
+	}
+}

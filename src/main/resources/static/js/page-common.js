@@ -49,8 +49,17 @@ function showErrorModal(title,msg){
 	modal.modal('show');
 }
 
-$('#logout-link').click(()=>{
-	$.post('/logout')
-		.done(()=>$(location).attr('href','/'))
-		.fail(resolvedError(err=>showErrorModal(msg('logout.error'),localizeError(err))));
-});
+$(()=>{
+	$('#logout-link').click(()=>{
+		$.post('/logout')
+			.done(()=>$(location).attr('href','/'))
+			.fail(resolvedError(err=>showErrorModal(msg('logout.error'),localizeError(err))));
+	});
+	$('#navbar-search-form').submit(()=>{
+		var query=$('#navbar-search-box').val();
+		if(query!==''){
+			$(location).attr('href','/search?w='+encodeURIComponent(query));
+		}
+		return false;
+	});
+})

@@ -19,6 +19,7 @@ public class User {
 
 	private boolean emailVerified;
 	private boolean admin;
+	private long registerTime;
 
 	public String getEmail() {
 		return email;
@@ -58,6 +59,14 @@ public class User {
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public long getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(long registerTime) {
+		this.registerTime = registerTime;
 	}
 
 }
