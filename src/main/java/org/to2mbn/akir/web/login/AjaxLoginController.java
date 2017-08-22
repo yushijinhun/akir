@@ -24,7 +24,7 @@ public class AjaxLoginController {
 	public void login(@RequestBody LoginRequest req, Principal principal) throws InvalidCredentialsException {
 		if (principal == null)
 			SecurityContextHolder.getContext().setAuthentication(
-					userService.authenticate(req.getEmail().toLowerCase(), req.getPassword()));
+					userService.authenticate(req.getEmail(), req.getPassword()));
 	}
 
 }

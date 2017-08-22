@@ -59,43 +59,50 @@ public class EmailVerifyService {
 
 	public void sendVerifyEmail(User user) {
 		// TODO: rate limit
-		if (user.isEmailVerified())
-			throw new IllegalStateException("Email already verified");
+		if (user.isEmailVerified()) return;
 
-		EmailVerifyCode code = repository.findById(user.getEmail())
-				.orElseGet(() -> {
-					EmailVerifyCode newCode = new EmailVerifyCode();
-					newCode.setEmail(user.getEmail());
-					return newCode;
-				});
-		renewVerifyCode(code);
-		repository.save(code);
+		EmailVerifyCode code = createVerifyCodeFor(user);
+		code = repository.save(code);
 		verifyEmailSender.sendEmail(code, user);
 	}
 
 	public void verifyEmail(String email, String code) throws EmailVerifyException {
-		User user = userRepo.findById(email.toLowerCase())
-				.orElseThrow(() -> new WrongVerifyCodeException("User not exists"));
-		if (user.isEmailVerified())
-			throw new AlreadyVerifiedException("Email already verified");
-		EmailVerifyCode verifyCode = repository.findById(email)
-				.orElseThrow(() -> new WrongVerifyCodeException("Verify code not exists"));
-		if (System.currentTimeMillis() > verifyCode.getAvailableBefore())
-			throw new VerifyCodeExpiredException("Verify code has been expired");
-		if (!verifyCode.getCode().equals(code))
-			throw new WrongVerifyCodeException("Wrong verify code");
+		email = email.toLowerCase();
+
+		EmailVerifyCode verifyCode = repository.findByCode(code)
+				.orElseThrow(() -> new WrongVerifyCodeException("Wrong verify code"));
 
 		repository.delete(verifyCode);
+
+		User user = userRepo.findById(verifyCode.getOwnerId())
+				.orElseThrow(() -> new WrongVerifyCodeException("User not found"));
+
+		if (user.isEmailVerified())
+			throw new AlreadyVerifiedException("Email already verified");
+
+		if (!user.getEmail().equals(email))
+			throw new WrongVerifyCodeException("Wrong email");
+
+		if (System.currentTimeMillis() > verifyCode.getAvailableBefore())
+			throw new VerifyCodeExpiredException("Verify code has been expired");
+
 		user.setEmailVerified(true);
 		userRepo.save(user);
 
-		LOGGER.info("User {} email verified", user.getEmail());
+		// delete other verify codes
+		repository.deleteByEmail(user.getEmail());
+
+		LOGGER.info("User {} verified email {}", user.getId(), user.getEmail());
 	}
 
-	private void renewVerifyCode(EmailVerifyCode verifyCode) {
+	private EmailVerifyCode createVerifyCodeFor(User user) {
+		EmailVerifyCode verifyCode = new EmailVerifyCode();
 		verifyCode.setCode(codeGenerator.generate(codeLength));
+		verifyCode.setEmail(user.getEmail());
+		verifyCode.setOwnerId(user.getId());
 		verifyCode.setSendTime(System.currentTimeMillis());
 		verifyCode.setAvailableBefore(verifyCode.getSendTime() + availableTime);
+		return verifyCode;
 	}
 
 }

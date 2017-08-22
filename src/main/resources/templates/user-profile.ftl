@@ -69,7 +69,7 @@
 							</a>
 						</div>
 						<div class="character-model character-model-${character_model}">
-							<span>
+							<span class="text-muted">
 								<i class="fa fa-${character_model_icons[character_model]}"></i>
 								<@msg "character.model.${character_model}"/>
 							</span>

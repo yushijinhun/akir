@@ -2,6 +2,7 @@ package org.to2mbn.akir.core.service.user;
 
 import static java.util.Objects.requireNonNull;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,9 @@ import org.to2mbn.akir.core.repository.UserRepository;
 @Component
 public class UserService implements UserDetailsService {
 
-	public static final String REGEX_EMAIL = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-	public static final String REGEX_NAME = "[a-zA-Z]([-_]?[a-zA-Z0-9]+)*";
+	public static final String REGEX_EMAIL =
+			"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+	public static final String REGEX_NAME = "[a-zA-Z0-9]([-_ ]?[a-zA-Z0-9]+)*";
 	public static final int MAX_LENGTH_EMAIL = 254;
 	public static final int MAX_LENGTH_NAME = 254;
 	public static final int MIN_LENGTH_PASSWORD = 6;
@@ -78,12 +80,18 @@ public class UserService implements UserDetailsService {
 	private ApplicationEventPublisher eventPublisher;
 
 	@Override
-	public AkirUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		if (repository.existsById(email)) {
-			return new AkirUserDetails(repository::findById, email);
-		} else {
-			throw new UsernameNotFoundException(email);
+	public AkirUserDetails loadUserByUsername(String userIdStr) throws UsernameNotFoundException {
+		UUID id;
+		try {
+			id = UUID.fromString(userIdStr);
+		} catch (IllegalArgumentException e) {
+			throw new UsernameNotFoundException(userIdStr);
 		}
+
+		if (!repository.existsById(id))
+			throw new UsernameNotFoundException(userIdStr);
+
+		return new AkirUserDetails(repository::findById, id);
 	}
 
 	public User login(String email, String password) throws AuthenticationException, InvalidCredentialsException {
@@ -100,7 +108,9 @@ public class UserService implements UserDetailsService {
 	}
 
 	public Authentication authenticate(String email, String password) throws AuthenticationException, InvalidCredentialsException {
-		return authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		return authenticate(new UsernamePasswordAuthenticationToken(
+				repository.findByEmail(email.toLowerCase()).orElseThrow(InvalidCredentialsException::new).getId().toString(),
+				password));
 	}
 
 	public User register(String email, String name, String password) throws UserConflictException {
@@ -126,12 +136,13 @@ public class UserService implements UserDetailsService {
 		email = email.toLowerCase();
 		name = name.toLowerCase();
 
-		if (repository.existsById(email))
+		if (repository.existsByEmail(email))
 			throw new UserConflictException("Email is already in use");
 		if (repository.existsByName(name))
 			throw new UserConflictException("Name is already in use");
 
 		User user = new User();
+		user.setId(UUID.randomUUID());
 		user.setEmail(email);
 		user.setName(name);
 		user.setPasswordHash(passwordEncoder.encode(password));
@@ -142,10 +153,10 @@ public class UserService implements UserDetailsService {
 
 		LOGGER.info("User {} registered", user.getEmail());
 
-		eventPublisher.publishEvent(new UserRegistrationEvent(this, user.getEmail()));
+		eventPublisher.publishEvent(new UserRegistrationEvent(this, user.getId()));
 
 		// re-find the user object as the user object might have been changed
-		return repository.findById(user.getEmail()).get();
+		return repository.findById(user.getId()).get();
 	}
 
 	@EventListener

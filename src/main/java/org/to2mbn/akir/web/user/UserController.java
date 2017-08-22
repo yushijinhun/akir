@@ -25,7 +25,7 @@ public class UserController {
 	public String viewProfile(@PathVariable String username, ModelMap model) throws UserNotFoundException {
 		User user = userRepo.findByName(username).orElseThrow(() -> new UserNotFoundException(username));
 		model.put("showing_user", user);
-		model.put("user_characters", profileRepo.findByOwnerEmail(user.getEmail()));
+		model.put("user_characters", profileRepo.findByOwnerId(user.getId()));
 		return "user-profile";
 	}
 }

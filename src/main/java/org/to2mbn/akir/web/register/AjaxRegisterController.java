@@ -30,7 +30,7 @@ public class AjaxRegisterController {
 	@GetMapping("validate/email")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void validateEmail(@RequestParam String email) throws UserConflictException {
-		if (userRepo.existsById(email.toLowerCase()))
+		if (userRepo.existsByEmail(email.toLowerCase()))
 			throw new UserConflictException("Email is already in use");
 	}
 

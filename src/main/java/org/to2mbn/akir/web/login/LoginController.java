@@ -19,6 +19,7 @@ public class LoginController {
 	@GetMapping
 	public String loginPage(ModelMap model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
 		OneTimeCookie.consume(request, response, LOGIN_RETURN_URL)
+				.map(ReturnableLoginUrlAuthenticationEntryPoint::decodeReturnUrl)
 				.ifPresent(returnUrl -> model.addAttribute("login_return_url", returnUrl));
 
 		OneTimeCookie.consume(request, response, LOGIN_TOOLTIP)

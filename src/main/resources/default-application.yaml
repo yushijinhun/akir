@@ -1,7 +1,14 @@
 server:
 
-  # HTTP服务端口号
+  # http服务端口号
   port: 8080
+
+  # 是否使用X-Forwarded-For和X-Forwarded-Proto头来识别客户端
+  # 如果您使用反向代理, 请将下行uncomment
+  # **安全提示**:
+  #   如果您开启该选项, 请务必首先在前端服务器上清除X-Forwarded-For和X-Forwarded-Proto头, 以防IP伪造.
+  #   同时后端服务器应只能通过反向代理被访问, 而不能被客户端直接访问.
+  # use-forward-headers: true
 
 spring:
 
@@ -12,7 +19,7 @@ spring:
   datasource:
 
     # 数据库驱动
-    # 默认由spring自动检测，自定义请将下行uncomment
+    # 默认自动检测, 自定义请将下行uncomment
     # driver-class-name: com.mysql.jdbc.Driver
 
     # 数据库地址
@@ -33,6 +40,7 @@ spring:
     username: email@example.com
     password: 123456
     properties:
+      # 是否启用StartTLS
       mail.smtp.starttls.enable: true
 
 akir-server:
@@ -41,13 +49,15 @@ akir-server:
   name: akir
 
   # 能访问到该服务端的URL
+  # **安全提示**:
+  #   强烈建议您使用https进行加密. 可以通过反向代理的方式(如nginx)来实现https.
   url: http://localhost:8080/
 
   # 是否要求注册时验证邮箱
   require-email-verfied: true
 
   # 发送验证邮件的邮箱
-  # 默认同spring.mail.username，自定义请将下行uncomment
+  # 默认同spring.mail.username, 自定义请将下行uncomment
   # verify-email-sender: email@example.com
 
   # 存放皮肤/披风文件的目录

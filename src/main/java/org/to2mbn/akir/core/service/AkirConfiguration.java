@@ -1,10 +1,8 @@
 package org.to2mbn.akir.core.service;
 
-import java.net.URI;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.security.web.util.RedirectUrlBuilder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 @ConfigurationProperties("akir-server")
@@ -56,13 +54,8 @@ public class AkirConfiguration {
 		this.texturesStorage = texturesStorage;
 	}
 
-	public RedirectUrlBuilder rootUrl() {
-		RedirectUrlBuilder urlBuilder = new RedirectUrlBuilder();
-		URI uri = URI.create(getUrl());
-		urlBuilder.setScheme(uri.getScheme());
-		urlBuilder.setServerName(uri.getHost());
-		urlBuilder.setPort(uri.getPort());
-		return urlBuilder;
+	public UriComponentsBuilder rootUrl() {
+		return UriComponentsBuilder.fromHttpUrl(url);
 	}
 
 }

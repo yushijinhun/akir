@@ -10,6 +10,6 @@ public interface CharacterRepository extends PagingAndSortingRepository<GameChar
 
 	Optional<GameCharacter> findByName(String name);
 
-	List<GameCharacter> findByOwnerEmail(String ownerEmail);
+	List<GameCharacter> findByOwnerId(UUID ownerId);
 
 }

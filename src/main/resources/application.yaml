@@ -26,6 +26,7 @@ server:
     accesslog:
       enabled: true
       pattern: '%t %a "%r" %s (%D ms)'
+    internal-proxies: '.*'
   compression:
     enabled: true
     mime-types:

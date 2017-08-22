@@ -16,16 +16,17 @@ import org.hibernate.annotations.Type;
 public class GameCharacter {
 
 	@Id
-	@Type(type = "uuid-char")
+	@Column(length = 16)
+	@Type(type = "uuid-binary")
 	private UUID uuid;
 
-	@Column(nullable = false)
-	private String ownerEmail;
+	@Column(nullable = false, length = 16)
+	@Type(type = "uuid-binary")
+	private UUID ownerId;
 
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TextureModel model = TextureModel.STEVE;
 
@@ -58,12 +59,12 @@ public class GameCharacter {
 		this.model = model;
 	}
 
-	public String getOwnerEmail() {
-		return ownerEmail;
+	public UUID getOwnerId() {
+		return ownerId;
 	}
 
-	public void setOwnerEmail(String ownerEmail) {
-		this.ownerEmail = ownerEmail;
+	public void setOwnerId(UUID ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public Map<TextureType, String> getTextures() {

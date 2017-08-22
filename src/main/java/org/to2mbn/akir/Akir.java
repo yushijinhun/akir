@@ -5,11 +5,16 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
+import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class Akir {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(Akir.class);
 
 	private static final String CONFIG_PATH = "application.yaml";
 	private static final String DEFAULT_CONFIG_PATH = "/default-application.yaml";
@@ -17,7 +22,7 @@ public class Application {
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.ENGLISH);
 		if (doesConfigExist()) {
-			SpringApplication.run(Application.class, args);
+			startApplication(args);
 		} else {
 			if (copyConfig()) {
 				System.err.println("No configuration is detected.");
@@ -33,7 +38,7 @@ public class Application {
 	}
 
 	private static boolean copyConfig() {
-		try (InputStream in = Application.class.getResourceAsStream(DEFAULT_CONFIG_PATH)) {
+		try (InputStream in = Akir.class.getResourceAsStream(DEFAULT_CONFIG_PATH)) {
 			if (in == null) {
 				System.err.println(DEFAULT_CONFIG_PATH + " not exists");
 				return false;
@@ -46,4 +51,30 @@ public class Application {
 			return false;
 		}
 	}
+
+	private static void startApplication(String[] args) {
+		SpringApplication app = new SpringApplication(Akir.class);
+		app.setDefaultProperties(getDefaultProperties());
+		app.run(args);
+	}
+
+	private static Properties getDefaultProperties() {
+		Properties properties = new Properties();
+		try {
+			loadProperties("/git.properties", properties);
+			loadProperties("/META-INF/build-info.properties", properties);
+		} catch (IOException e) {
+			LOGGER.warn("Unable to load default properties", e);
+		}
+		return properties;
+	}
+
+	private static void loadProperties(String location, Properties properties) throws IOException {
+		try (InputStream in = Akir.class.getResourceAsStream(location)) {
+			if (in != null) {
+				properties.load(in);
+			}
+		}
+	}
+
 }

@@ -1,8 +1,11 @@
 package org.to2mbn.akir.yggdrasil;
 
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.core.io.Resource;
+import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,9 @@ public class TexturesController {
 	@Autowired
 	private TexturesManager texturesManager;
 
+	@Autowired
+	private ResourceProperties resourceProperties;
+
 	@GetMapping
 	public ResponseEntity<Resource> texture(@PathVariable String textureId) {
 		if (!REGEX_SHA1.matcher(textureId).matches()) {
@@ -31,6 +37,8 @@ public class TexturesController {
 		}
 		return ResponseEntity.ok()
 				.contentType(MediaType.IMAGE_PNG)
+				.cacheControl(CacheControl.maxAge(resourceProperties.getCachePeriod(), TimeUnit.SECONDS))
+				.eTag(textureId)
 				.body(resource);
 	}
 }

@@ -1,8 +1,5 @@
 package org.to2mbn.akir.core.service.user.email;
 
-import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.web.util.RedirectUrlBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.to2mbn.akir.core.model.EmailVerifyCode;
@@ -41,7 +37,7 @@ public class VerifyEmailSender {
 
 	@Async("emailExecutor")
 	public void sendEmail(EmailVerifyCode code, User user) {
-		LOGGER.info("Sending verify email to {}", user.getEmail());
+		LOGGER.info("Sending verify email to {} for {}", user.getEmail(), user.getId());
 		try {
 			mailSender.send(msg -> {
 				msg.setFrom(emailSender());
@@ -76,18 +72,10 @@ public class VerifyEmailSender {
 	}
 
 	private String verifyUrl(EmailVerifyCode code) {
-		RedirectUrlBuilder url = config.rootUrl();
-		url.setServletPath("/email_verify/do_verify");
-		url.setQuery(MessageFormat.format("email={0}&code={1}", urlEncode(code.getEmail()), urlEncode(code.getCode())));
-		return url.getUrl();
+		return config.rootUrl()
+				.path("/email_verify/do_verify")
+				.queryParam("email", code.getEmail())
+				.queryParam("code", code.getCode())
+				.toUriString();
 	}
-
-	private String urlEncode(String str) {
-		try {
-			return URLEncoder.encode(str, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
-
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Function;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,13 +17,13 @@ public class AkirUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
-	private Function<String, Optional<User>> userAccessor;
-	private String userId;
+	private Function<UUID, Optional<User>> userAccessor;
+	private UUID userId;
 
 	private static final GrantedAuthority ROLE_VERIFIED = new SimpleGrantedAuthority("ROLE_VERIFIED");
 	private static final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority("ROLE_ADMIN");
 
-	public AkirUserDetails(Function<String, Optional<User>> userAccessor, String userId) {
+	public AkirUserDetails(Function<UUID, Optional<User>> userAccessor, UUID userId) {
 		this.userAccessor = userAccessor;
 		this.userId = userId;
 	}
@@ -45,7 +46,7 @@ public class AkirUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return userId;
+		return userId.toString();
 	}
 
 	@Override
@@ -69,12 +70,12 @@ public class AkirUserDetails implements UserDetails {
 	}
 
 	public User getUserModel() {
-		return userAccessor.apply(userId).orElseThrow(() -> new UsernameNotFoundException(userId));
+		return userAccessor.apply(userId).orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
 	}
 
 	@Override
 	public String toString() {
-		return getUserModel().getEmail();
+		return getUserModel().getEmail() + "[" + userId + "]";
 	}
 
 }
