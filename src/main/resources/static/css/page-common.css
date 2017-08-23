@@ -62,6 +62,36 @@ html, body {
 	text-decoration: none;
 }
 
+.divided-list>* {
+	border-bottom: 1px solid #ddd;
+	padding: 12px 0;
+}
+
+.divided-list>*:last-child {
+	border-bottom: none;
+}
+
+.add-element-link {
+	color: #999;
+}
+
+.add-element-link:hover {
+	color: #666;
+	text-decoration: none;
+}
+
+.character-model-name-steve .fa {
+	color: #2294d3;
+}
+
+.character-model-name-alex .fa {
+	color: #ff69b4;
+}
+
+.character-model-name .fa {
+	font-weight: 600;
+}
+
 @media ( min-width :768px) {
 	.navbar-right>.navbar-nav {
 		float: right;

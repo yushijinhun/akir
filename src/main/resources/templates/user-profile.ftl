@@ -1,10 +1,7 @@
 <#include "util/common.ftl">
 <#include "util/page.ftl">
 
-<#assign character_model_icons={
-	"steve":"mars",
-	"alex":"venus"
-}>
+<#assign is_user_self=showing_user.id==login_user.id>
 
 <@page_head>
 	<@title>${showing_user.name}</@>
@@ -49,38 +46,40 @@
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="active"><a href="#"><@msg "user_details.characters"/></a></li>
 		</ul>
-		<#list user_characters>
-			<ul class="character-list">
-			<#items as character>
-				<#assign character_url=url("/character/${character.uuid}")>
-				<#assign character_model=character.model?lower_case>
-				<li>
-					<div class="character-avatar">
-						<a href="${character_url}">
-							<@character_avatar character 54/>
+		<#if is_user_self||user_characters?has_content>
+			<ul class="character-list divided-list">
+				<#if is_user_self>
+					<li class="add-character-btn">
+						<a class="add-element-link" href="${url("/character/new")}">
+							<i class="fa fa-plus-square-o fa-3x"></i>
+							<span><@msg "user_details.add_character"/></span>
 						</a>
-					</div>
-					<div>
-						<div class="character-name">
-							<a class="link-grey-dark" href="${character_url}">
-								<span class="h4">
-									${character.name}
-								</span>
+					</li>
+				</#if>
+				<#list user_characters as character>
+					<#assign character_url=url("/character/${character.uuid}")>
+					<li>
+						<div class="character-avatar">
+							<a href="${character_url}">
+								<@character_avatar character 54/>
 							</a>
 						</div>
-						<div class="character-model character-model-${character_model}">
-							<span class="text-muted">
-								<i class="fa fa-${character_model_icons[character_model]}"></i>
-								<@msg "character.model.${character_model}"/>
-							</span>
+						<div>
+							<div class="character-name">
+								<a class="link-grey-dark" href="${character_url}">
+									<span class="h4">
+										${character.name}
+									</span>
+								</a>
+							</div>
+							<@character_model_name character.model/>
 						</div>
-					</div>
-				</li>
-			</#items>
+					</li>
+				</#list>
 			</ul>
 		<#else>
-			<p class="text-muted no-character-tip"><@msg "user_details.no_character"/></p>
-		</#list>
+			<span class="text-muted no-character-tip"><@msg "user_details.no_character"/></span>
+		</#if>
 	</div>
 </div>
 </@>

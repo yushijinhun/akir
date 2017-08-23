@@ -1,6 +1,5 @@
 <#include "util/common.ftl">
 <#include "util/panel-page.ftl">
-<#include "util/form.ftl">
 
 <@page_head>
 	<@title><@msg "action.register"/></@>

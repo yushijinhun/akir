@@ -35,6 +35,8 @@ public class GameCharacter {
 	@MapKeyEnumerated(EnumType.STRING)
 	private Map<TextureType, String> textures;
 
+	private long createTime;
+
 	public UUID getUuid() {
 		return uuid;
 	}
@@ -75,4 +77,11 @@ public class GameCharacter {
 		this.textures = textures;
 	}
 
+	public long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
+	}
 }

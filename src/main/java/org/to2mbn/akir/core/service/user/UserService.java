@@ -151,7 +151,7 @@ public class UserService implements UserDetailsService {
 		user.setRegisterTime(System.currentTimeMillis());
 		user = repository.save(user);
 
-		LOGGER.info("User {} registered", user.getEmail());
+		LOGGER.info("User {} registered with email {}", user.getId(), user.getEmail());
 
 		eventPublisher.publishEvent(new UserRegistrationEvent(this, user.getId()));
 

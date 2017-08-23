@@ -18,7 +18,7 @@ import org.to2mbn.akir.core.service.texture.TexturesManager;
 @Controller
 public class TexturesController {
 
-	private static final Pattern REGEX_SHA1 = Pattern.compile("[a-z0-9]{40}");
+	private static final Pattern REGEX_TEXTURE_ID = Pattern.compile("[a-z0-9]+");
 
 	@Autowired
 	private TexturesManager texturesManager;
@@ -28,7 +28,7 @@ public class TexturesController {
 
 	@GetMapping
 	public ResponseEntity<Resource> texture(@PathVariable String textureId) {
-		if (!REGEX_SHA1.matcher(textureId).matches()) {
+		if (!REGEX_TEXTURE_ID.matcher(textureId).matches()) {
 			return ResponseEntity.notFound().build();
 		}
 		Resource resource = texturesManager.textureResource(textureId);

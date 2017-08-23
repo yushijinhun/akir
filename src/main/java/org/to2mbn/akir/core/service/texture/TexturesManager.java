@@ -33,7 +33,7 @@ public class TexturesManager {
 			Resource resource = new ClassPathResource("/textures/default/skin/" + model.name().toLowerCase() + ".png");
 			if (resource.exists()) {
 				try (InputStream in = resource.getInputStream()) {
-					String textureId = DigestUtils.sha1Hex(in);
+					String textureId = DigestUtils.sha256Hex(in);
 					predefinedTextures.put(textureId, resource);
 					defaultSkins.put(model, textureId);
 				}
@@ -45,7 +45,7 @@ public class TexturesManager {
 		defaultSkins = unmodifiableMap(defaultSkins);
 	}
 
-	public String defaultTextureIdFor(TextureModel model) {
+	public String defaultSkinIdFor(TextureModel model) {
 		return defaultSkins.get(model);
 	}
 

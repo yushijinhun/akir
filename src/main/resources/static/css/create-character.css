@@ -1,0 +1,51 @@
+.input-owner-character>* {
+	display: inline-grid;
+}
+
+.input-owner-character button, .input-owner-character input {
+	height: 36.5px;
+}
+
+.owner-character-divider, .character-name-input .form-control-feedback {
+	vertical-align: bottom;
+	line-height: 36.5px;
+}
+
+.owner-chooser .gravatar {
+	border-radius: 3px;
+}
+
+.owner-chooser button {
+	text-align: left;
+}
+
+.character-name-input {
+	position: relative;
+}
+
+.model-chooser .radio input {
+	position: relative;
+}
+
+.model-chooser .character-avatar, .model-chooser input {
+	vertical-align: middle;
+}
+
+.texture-model-info {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 4px;
+}
+
+.model-chooser {
+	margin-top: 20px;
+	max-width: 400px;
+}
+
+.model-chooser>label {
+	margin-bottom: 0;
+}
+
+.texture-model-info .character-model-name span {
+	color: #444;
+}
