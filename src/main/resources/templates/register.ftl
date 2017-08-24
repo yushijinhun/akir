@@ -14,7 +14,7 @@
 		<input type="email" id="email" name="email" class="form-control" placeholder="<@msg "user.email"/>" required autofocus
 			maxlength="${email_maxlength?c}"
 			data-remote="${url("/register/validate/email")}"
-			data-remote-error="<@msg "register.error.email_conflict"/>">
+			data-remote-error="<@msg "error.user.conflict.email"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
 	</div>
@@ -24,7 +24,7 @@
 			maxlength="${name_maxlength?c}"
 			pattern="${name_regex}"
 			data-remote="${url("/register/validate/name")}"
-			data-remote-error="<@msg "register.error.name_conflict"/>">
+			data-remote-error="<@msg "error.user.conflict.name"/>">
 		<@form_feedback_icon/>
 		<@form_helper_errors/>
 	</div>

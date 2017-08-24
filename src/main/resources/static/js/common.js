@@ -4,11 +4,14 @@ function ajaxForm(config) {
 			return false;
 		}
 		config.before();
+		var data=config.form.serializeObject();
+		if(config.processForm!==undefined)
+			config.processForm(data);
 		$.ajax({
 			url : config.url,
 			type : 'POST',
 			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(config.form.serializeObject()),
+			data : JSON.stringify(data),
 			success : result => {
 				config.after();
 				config.success(result);

@@ -46,27 +46,27 @@
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="active"><a href="#"><@msg "user_details.characters"/></a></li>
 		</ul>
-		<#if is_user_self||user_characters?has_content>
+		<#if is_user_self||login_user.admin||user_characters?has_content>
 			<ul class="character-list divided-list">
-				<#if is_user_self>
+				<#if is_user_self||login_user.admin>
 					<li class="add-character-btn">
-						<a class="add-element-link" href="${url("/character/new")}">
+						<a class="add-element-link" href="${url("/character/new?ownerName={owner}",{"owner":showing_user.name})}">
 							<i class="fa fa-plus-square-o fa-3x"></i>
 							<span><@msg "user_details.add_character"/></span>
 						</a>
 					</li>
 				</#if>
 				<#list user_characters as character>
-					<#assign character_url=url("/character/${character.uuid}")>
+					<#assign character_profile_url=character_url(character)>
 					<li>
 						<div class="character-avatar">
-							<a href="${character_url}">
+							<a href="${character_profile_url}">
 								<@character_avatar character 54/>
 							</a>
 						</div>
 						<div>
 							<div class="character-name">
-								<a class="link-grey-dark" href="${character_url}">
+								<a class="link-grey-dark" href="${character_profile_url}">
 									<span class="h4">
 										${character.name}
 									</span>
@@ -78,7 +78,7 @@
 				</#list>
 			</ul>
 		<#else>
-			<span class="text-muted no-character-tip"><@msg "user_details.no_character"/></span>
+			<div class="text-muted no-character-tip"><@msg "user_details.no_character"/></div>
 		</#if>
 	</div>
 </div>

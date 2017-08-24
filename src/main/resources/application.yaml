@@ -13,6 +13,12 @@ spring:
   freemarker:
     settings:
       template_exception_handler: rethrow
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
+      accept-case-insensitive-properties: true
+    serialization:
+      indent-output: true
 security:
   ignored:
   - /css/**

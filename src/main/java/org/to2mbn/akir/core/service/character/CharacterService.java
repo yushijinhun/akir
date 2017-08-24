@@ -10,9 +10,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.to2mbn.akir.core.model.GameCharacter;
 import org.to2mbn.akir.core.model.TextureModel;
+import org.to2mbn.akir.core.model.User;
 import org.to2mbn.akir.core.repository.CharacterRepository;
 import org.to2mbn.akir.core.repository.UserRepository;
 import org.to2mbn.akir.core.service.user.UserNotFoundException;
+import org.to2mbn.akir.core.service.user.UserService;
 
 @Component
 public class CharacterService {
@@ -24,6 +26,7 @@ public class CharacterService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CharacterService.class);
 
+	@Autowired
 	private ApplicationEventPublisher eventPublisher;
 
 	@Autowired
@@ -31,6 +34,24 @@ public class CharacterService {
 
 	@Autowired
 	private CharacterRepository characterRepo;
+
+	public static void checkPermission(User characterOwner) throws UnauthorizedCharacterOperationException {
+		checkPermission(characterOwner.getId());
+	}
+
+	public static void checkPermission(GameCharacter character) throws UnauthorizedCharacterOperationException {
+		checkPermission(character.getOwnerId());
+	}
+
+	public static void checkPermission(UUID characterOwnerId) throws UnauthorizedCharacterOperationException {
+		checkPermission(characterOwnerId, UserService.getCurrentUser().orElseThrow(() -> new UnauthorizedCharacterOperationException("You are not logged in")));
+	}
+
+	public static void checkPermission(UUID characterOwnerId, User callerUser) throws UnauthorizedCharacterOperationException {
+		if (callerUser.isAdmin() || callerUser.getId().equals(characterOwnerId))
+			return;
+		throw new UnauthorizedCharacterOperationException("You are not admin, or the character doesn't belong to you");
+	}
 
 	public GameCharacter createCharacter(UUID owner, String characterName) throws UserNotFoundException, CharacterConflictException {
 		// check name

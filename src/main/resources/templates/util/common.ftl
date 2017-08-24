@@ -2,13 +2,20 @@
 <#include "libs.ftl">
 
 <#-- reusable elements -->
-<#function url url>
-	<#local result><@spring.url url/></#local>
-	<#return result>
+<#function url url extra={}>
+	<#if extra?has_content>
+		<#return springMacroRequestContext.getContextUrl(url,extra)>
+	<#else>
+		<#return springMacroRequestContext.getContextUrl(url)>
+	</#if>
 </#function>
 
 <#function user_profile_url user>
-	<#return url("/user/"+user.name)>
+	<#return url("/user/{name}",{"name":user.name})>
+</#function>
+
+<#function character_url character>
+	<#return url("/character/${character.uuid}")>
 </#function>
 
 <#macro msg key args=[]>
@@ -64,11 +71,7 @@
 
 <#-- gravatar -->
 <#function gravatar_url user size>
-	<#local img_url="https://www.gravatar.com/avatar/"+ext.md5(user.email)+"?default=mm">
-	<#if size??>
-		<#local img_url=img_url+"&size="+size?c>
-	</#if>
-	<#return url(img_url)>
+	<#return url("https://www.gravatar.com/avatar/${ext.md5(user.email)}?default=mm&size=${size?c}")>
 </#function>
 
 <#macro gravatar_img user size>

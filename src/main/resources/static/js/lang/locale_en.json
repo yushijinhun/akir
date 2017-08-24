@@ -4,15 +4,29 @@
 	"error.internal_server_error":"An error occurred while processing your request.",
 	"error.access_denied":"You have no access to this page.",
 
+	"error.user.conflict":"The identity conflicts with another user.",
+	"error.user.conflict.email":"Email is already in use",
+	"error.user.conflict.name":"Name is already in use",
+	"error.user.not_found":"No such user",
+
+	"error.character.conflict":"The identity conflicts with another character.",
+	"error.character.conflict.name":"Character name is already in use",
+	"error.character.not_found":"No such character",
+	"character.error.unauthorized":"You are not allowed to operate on the character.",
+
 	"error.ajax.network":"Unable to connect to server.",
 	"error.ajax.unknown":"An error occurred while sending the request.",
 
 	"error_page.error_code":"Error code: {0}",
 
+	"error_dialog.title":"Error",
+
 	"user.email":"Email",
 	"user.name":"Name",
 	"user.password":"Password",
-	"user.not_found":"No such user",
+
+	"character.name":"Character name",
+	"character.owner":"Owner",
 
 	"character.model.steve":"Steve",
 	"character.model.steve.description":"Standard skin model with 4 pixel wide arms.",
@@ -41,9 +55,6 @@
 	"register.panel_title":"Create a new account",
 	"register.confirm_password":"Confirm Password",
 	"register.login_action":"login",
-	"register.error.email_conflict":"Email is already in use",
-	"register.error.name_conflict":"Name is already in use",
-	"register.error.conflict":"The identity conflicts with another user.",
 	"register.tooltip.password_minlength":"Minimum of 6 characters",
 	"register.tooltip.password_mismatch":"Passwords don't match",
 	"register.success":"Registered successfully. Please login and verify your email address.",
@@ -62,17 +73,13 @@
 	"verify_email.resend.success":"A verification email is being sent to your email.",
 
 	"logout.message":"Click on the button below to logout.",
-	"logout.error":"Unable to logout",
 
 	"user_details.joined_on":"Joined on",
 	"user_details.characters":"Characters",
 	"user_details.no_character":"No characters",
 	"user_details.add_character":"Create a character",
 
-	"create_character.owner":"Owner",
-	"create_character.character_name":"Character name",
 	"create_character.choose_model":"Choose a model for the new character",
 	"create_character.choose_model.description":"You can also change the model after creation.",
-	"create_character.submit":"Create",
-	"create_character.error.name_conflict":"Character name is already in use"
+	"create_character.submit":"Create"
 }

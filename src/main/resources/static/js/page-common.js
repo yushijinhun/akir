@@ -40,20 +40,21 @@ function createModal(style){
 	return modalHtml;
 }
 
-function showErrorModal(title,msg){
+function showErrorModal(message){
 	var modal=createModal('sm');
 	modal.find('.modal-title').html('<span class="glyphicon glyphicon-exclamation-sign"></span> <span class="danger-modal-error-msg"></span>');
-	modal.find('.danger-modal-error-msg').text(title);
-	modal.find('.modal-body').text(msg);
+	modal.find('.danger-modal-error-msg').text(msg("error_dialog.title"));
+	modal.find('.modal-body').text(message);
 	modal.find('.modal-dialog').addClass('modal-danger');
 	modal.modal('show');
 }
 
 $(()=>{
+	window.errorDialog=err=>showErrorModal(localizeError(err));
 	$('#logout-link').click(()=>{
 		$.post('/logout')
 			.done(()=>$(location).attr('href','/'))
-			.fail(resolvedError(err=>showErrorModal(msg('logout.error'),localizeError(err))));
+			.fail(resolvedError(errorDialog));
 	});
 	$('#navbar-search-form').submit(()=>{
 		var query=$('#navbar-search-box').val();

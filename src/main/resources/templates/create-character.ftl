@@ -10,25 +10,25 @@
 <@page_body>
 <div class="h3"><@msg "action.create_character"/></div>
 <hr>
-<form id="create-character" data-toggle="validator">
+<form id="create-character-form" data-toggle="validator">
 	<div class="form-group has-feedback">
 		<div class="input-owner-character">
 			<div class="owner-chooser">
-				<label for="owner"><@msg "create_character.owner"/></label>
-				<button id="owner" class="btn btn-default" type="button">
-					<@gravatar_img login_user 20/>
-					${login_user.name}
+				<label for="owner"><@msg "character.owner"/></label>
+				<button id="owner" class="btn btn-default" type="button" data-value="${owner_user.name}">
+					<@gravatar_img owner_user 20/>
+					${owner_user.name}
 				</button>
 			</div>
 			<span class="owner-character-divider">/</span>
 			<div>
-				<label for="characterName"><@msg "create_character.character_name"/></label>
+				<label for="characterName"><@msg "character.name"/></label>
 				<div class="character-name-input">
 					<input id="characterName" name="characterName" type="text" class="form-control" required autofocus
 					maxlength="${name_maxlength?c}"
 					pattern="${name_regex}"
 					data-remote="${url("/character/new/validate/name")}"
-					data-remote-error="<@msg "create_character.error.name_conflict"/>">
+					data-remote-error="<@msg "error.character.conflict.name"/>">
 					<@form_feedback_icon/>
 				</div>
 			</div>
@@ -65,5 +65,5 @@
 <@page_end>
 	<@js js_page_common/>
 	<@js js_bootstrap_validator/>
-	<@css "/js/create-character.js"/>
+	<@js "/js/create-character.js"/>
 </@>
