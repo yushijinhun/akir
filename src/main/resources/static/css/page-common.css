@@ -34,7 +34,7 @@ html, body {
 	color: #a94442;
 }
 
-.character-avatar-img {
+.character-avatar image {
 	image-rendering: optimizeSpeed;
 	image-rendering: -moz-crisp-edges;
 	image-rendering: -o-crisp-edges;
@@ -43,12 +43,12 @@ html, body {
 	image-rendering: optimize-contrast;
 }
 
-.character-avatar-img-head {
+.character-avatar .character-avatar-img-head {
 	clip-path: inset(12.5% 75% 75% 12.5%);
 	transform: translate(calc(-100%/ 6 * 5), calc(-100%/ 6 * 5));
 }
 
-.character-avatar-img-helm {
+.character-avatar .character-avatar-img-helm {
 	clip-path: inset(12.5% 25% 75% 62.5%);
 	transform: translate(-500%, -100%);
 }

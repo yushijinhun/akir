@@ -81,10 +81,12 @@
 <#-- character avatar -->
 <#macro character_avatar_by_id texture_id size>
 <#local img_url=url("/yggdrasil/textures/texture/${texture_id}")>
-<svg class="character-avatar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size?c}" height="${size?c}">
-	<image class="character-avatar-img character-avatar-img-head" x="0" y="0" width="${(size/9*8*8)?c}" height="${(size/9*8*8)?c}" xlink:href="${img_url}" />
-	<image class="character-avatar-img character-avatar-img-helm" x="0" y="0" width="${(size*8)?c}" height="${(size*8)?c}" xlink:href="${img_url}" />
-</svg>
+<span class="character-avatar">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size?c}" height="${size?c}">
+		<image class="character-avatar-img-head" x="0" y="0" width="${(size/9*8*8)?c}" height="${(size/9*8*8)?c}" xlink:href="${img_url}" />
+		<image class="character-avatar-img-helm" x="0" y="0" width="${(size*8)?c}" height="${(size*8)?c}" xlink:href="${img_url}" />
+	</svg>
+</span>
 </#macro>
 
 <#macro character_avatar character size>

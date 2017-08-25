@@ -59,13 +59,13 @@
 				<#list user_characters as character>
 					<#assign character_profile_url=character_url(character)>
 					<li>
-						<div class="character-avatar">
+						<div class="character-info-avatar">
 							<a href="${character_profile_url}">
 								<@character_avatar character 54/>
 							</a>
 						</div>
 						<div>
-							<div class="character-name">
+							<div class="character-info-name">
 								<a class="link-grey-dark" href="${character_profile_url}">
 									<span class="h4">
 										${character.name}

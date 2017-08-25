@@ -19,16 +19,12 @@
 	text-align: left;
 }
 
-.character-name-input {
+.character-name-input, .model-chooser .radio>label {
 	position: relative;
 }
 
 .model-chooser .radio input {
-	position: relative;
-}
-
-.model-chooser .character-avatar, .model-chooser input {
-	vertical-align: middle;
+	top: 17.5px;
 }
 
 .texture-model-info {

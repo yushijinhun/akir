@@ -41,10 +41,12 @@
 	vertical-align: top;
 }
 
-.character-list>li .character-avatar {
-	width: 54px;
-	height: 54px;
+.character-list>li .character-info-avatar {
 	margin-right: 10px;
+}
+
+.character-info-avatar  {
+	line-height: 0;
 }
 
 .no-character-tip {
@@ -53,12 +55,9 @@
 }
 
 .add-character-btn span {
-	font-size: 18px;
+	font-size: 20px;
 	line-height: 36px;
 	margin-left: 8px;
-}
-
-.add-character-btn * {
 	vertical-align: top;
 }
 
