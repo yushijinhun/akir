@@ -1,0 +1,31 @@
+{
+	"name": "akir",
+	"scripts": {
+		"generate-js": "babel src/main/web/js --out-dir build/generated-web/static/js",
+		"test": "jshint src/main/web/js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/yushijinhun/akir.git"
+	},
+	"author": "yushijinhun",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/yushijinhun/akir/issues"
+	},
+	"homepage": "https://github.com/yushijinhun/akir",
+	"dependencies": {
+		"bootstrap": "^3.3.7",
+		"bootstrap-validator": "^0.11.9",
+		"font-awesome": "^4.7.0",
+		"form-serializer": "^2.5.0",
+		"jquery": "^3.2.1",
+		"jshint": "^2.9.5",
+		"skinview3d": "^1.0.2",
+		"three": "^0.87.1"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-es2015": "^6.24.1"
+	}
+}

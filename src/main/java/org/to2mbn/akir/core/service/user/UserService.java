@@ -18,7 +18,6 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ import org.to2mbn.akir.core.model.User;
 import org.to2mbn.akir.core.repository.UserRepository;
 
 @Component
-public class UserService implements UserDetailsService {
+public class UserService {
 
 	public static final String REGEX_EMAIL =
 			"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
@@ -70,7 +69,7 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository repository;
 
-	@Autowired
+	@Autowired(required = false)
 	private AuthenticationManager authProvider;
 
 	@Autowired
@@ -78,21 +77,6 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
-
-	@Override
-	public AkirUserDetails loadUserByUsername(String userIdStr) throws UsernameNotFoundException {
-		UUID id;
-		try {
-			id = UUID.fromString(userIdStr);
-		} catch (IllegalArgumentException e) {
-			throw new UsernameNotFoundException(userIdStr);
-		}
-
-		if (!repository.existsById(id))
-			throw new UsernameNotFoundException(userIdStr);
-
-		return new AkirUserDetails(repository::findById, id);
-	}
 
 	public User login(String email, String password) throws AuthenticationException, InvalidCredentialsException {
 		return getUserFromAuthentication(authenticate(email, password))

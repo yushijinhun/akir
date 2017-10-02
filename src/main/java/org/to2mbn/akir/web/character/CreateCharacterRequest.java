@@ -1,9 +1,9 @@
 package org.to2mbn.akir.web.character;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.to2mbn.akir.core.model.TextureModel;
 import org.to2mbn.akir.core.service.character.CharacterService;
 

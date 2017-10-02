@@ -1,17 +1,23 @@
 <#-- public libraries -->
 
 <#-- bootstrap -->
-<#assign css_bootstrap                 = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<#assign js_bootstrap                  = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js">
+<#assign css_bootstrap                 = "/css/bootstrap.min.css">
+<#assign js_bootstrap                  = "/js/bootstrap.min.js">
 
 <#-- jquery -->
-<#assign js_jquery                     = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<#assign js_jquery                     = "/js/jquery.min.js">
 
 <#-- jquery-serialize-object -->
-<#assign js_jquery_serialize_object    = "https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js">
+<#assign js_jquery_serialize_object    = "/js/jquery.serialize-object.min.js">
 
 <#-- bootstrap-validator -->
-<#assign js_bootstrap_validator        = "https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js">
+<#assign js_bootstrap_validator        = "/js/validator.min.js">
 
 <#-- font-awesome -->
-<#assign css_font_awesome              = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<#assign css_font_awesome              = "/css/font-awesome.min.css">
+
+<#-- three.js -->
+<#assign js_three                      = "/js/three.min.js">
+
+<#-- skinview3d -->
+<#assign js_skinview3d                 = "/js/skinview3d.babel.min.js">

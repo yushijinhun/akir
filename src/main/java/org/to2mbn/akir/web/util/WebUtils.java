@@ -6,7 +6,7 @@ import static org.springframework.util.ReflectionUtils.makeAccessible;
 import java.lang.reflect.Field;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.boot.autoconfigure.web.servlet.error.DefaultErrorAttributes;
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.to2mbn.akir.web.util.exception.RestExceptionHandler;

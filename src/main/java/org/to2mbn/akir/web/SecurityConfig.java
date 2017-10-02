@@ -8,14 +8,10 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.to2mbn.akir.core.model.User;
@@ -23,7 +19,6 @@ import org.to2mbn.akir.core.service.AkirConfiguration;
 import org.to2mbn.akir.core.service.user.UserService;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
@@ -51,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 
 						// == static resources -> permit all
-						"/css/**", "/images/**", "/js/**", "/favicon.ico",
+						"/css/**", "/images/**", "/js/**", "/fonts/**", "/favicon.ico",
 
 						// == login/register/email_verify -> permit all
 						"/register/**", "/login", "/email_verify/do_verify",
@@ -97,10 +92,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT))
 				.and();
 	}
-
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
 }

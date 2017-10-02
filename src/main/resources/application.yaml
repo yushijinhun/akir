@@ -19,13 +19,6 @@ spring:
       accept-case-insensitive-properties: true
     serialization:
       indent-output: true
-security:
-  ignored:
-  - /css/**
-  - /js/**
-  - /images/**
-  - /yggdrasil/**
-  - /favicon.ico
 server:
   tomcat:
     basedir: .

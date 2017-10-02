@@ -3,6 +3,7 @@ package org.to2mbn.akir.web.util;
 import java.util.Optional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.to2mbn.akir.core.model.GameCharacter;
 import org.to2mbn.akir.core.model.TextureModel;
@@ -22,6 +23,16 @@ public class AkirModelExtension {
 	public String skinTextureId(GameCharacter character) {
 		return Optional.ofNullable(character.getTextures().get(TextureType.SKIN))
 				.orElseGet(() -> texturesManager.defaultSkinIdFor(character.getModel()));
+	}
+
+	@Nullable
+	public String capeTextureId(GameCharacter character) {
+		return character.getTextures().get(TextureType.CAPE);
+	}
+
+	@Nullable
+	public String elytraTextureId(GameCharacter character) {
+		return character.getTextures().get(TextureType.ELYTRA);
 	}
 
 	public String defaultSkinTextureId(String type) {

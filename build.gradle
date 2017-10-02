@@ -59,3 +59,64 @@ bootJar {
 springBoot {
 	buildInfo()
 }
+
+task npmInit {
+	doLast{
+		exec {
+			executable 'npm'
+			args 'install', '.'
+		}
+	}
+}
+
+task npmTest {
+	dependsOn npmInit
+	doLast {
+		exec {
+			executable 'npm'
+			args 'test'
+		}
+	}
+}
+
+check {
+	dependsOn npmTest
+}
+
+task generateWeb {
+	dependsOn npmTest
+	doLast{
+		exec {
+			executable 'npm'
+			args 'run', 'generate-js'
+		}
+		copy {
+			from 'node_modules/three/build/three.min.js'
+			from 'node_modules/skinview3d/build/skinview3d.babel.min.js'
+			from 'node_modules/skinview3d/build/skinview3d.babel.min.js.map'
+			from 'node_modules/jquery/dist/jquery.min.js'
+			from 'node_modules/jquery/dist/jquery.min.js.map'
+			from 'node_modules/bootstrap/dist/js/bootstrap.min.js'
+			from 'node_modules/form-serializer/dist/jquery.serialize-object.min.js'
+			from 'node_modules/bootstrap-validator/dist/validator.min.js'
+			into 'build/generated-web/static/js'
+		}
+		copy {
+			from 'node_modules/bootstrap/dist/css/bootstrap.min.css'
+			from 'node_modules/bootstrap/dist/css/bootstrap.min.css.map'
+			from 'node_modules/font-awesome/css/font-awesome.min.css'
+			into 'build/generated-web/static/css'
+		}
+		copy {
+			from 'node_modules/bootstrap/dist/fonts'
+			from 'node_modules/font-awesome/fonts'
+			include '**'
+			into 'build/generated-web/static/fonts'
+		}
+	}
+}
+
+processResources {
+	dependsOn generateWeb
+	from('build/generated-web')
+}

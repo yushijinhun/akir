@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.to2mbn.akir.core.service.user.UserService;
 
 @Controller
-public class ErrorController implements org.springframework.boot.autoconfigure.web.servlet.error.ErrorController {
+public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger("org.to2mbn.akir.web.ErrorHandling");
 

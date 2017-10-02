@@ -1,0 +1,28 @@
+.prop-key {
+	text-align: right;
+}
+
+.prop-value {
+	text-align: left;
+}
+
+.prop-edit {
+	text-align: left;
+}
+
+.character-properties {
+	list-style: none;
+}
+
+#prop_model .prop-value .text-muted {
+	color: unset;
+}
+
+#character_viewer div {
+	display: inline-block;
+}
+
+#character_viewer {
+	position: relative;
+	text-align: center;
+}
