@@ -92,7 +92,7 @@ html, body {
 	font-weight: 600;
 }
 
-@media ( min-width :768px) {
+@media ( min-width:768px) {
 	.navbar-right>.navbar-nav {
 		float: right;
 	}

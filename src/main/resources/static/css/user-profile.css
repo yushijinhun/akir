@@ -45,7 +45,7 @@
 	margin-right: 10px;
 }
 
-.character-info-avatar  {
+.character-info-avatar {
 	line-height: 0;
 }
 
@@ -61,7 +61,7 @@
 	vertical-align: top;
 }
 
-@media ( max-width :767px) {
+@media ( max-width:767px) {
 	.vcard-col {
 		width: 100%;
 	}

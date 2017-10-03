@@ -7,8 +7,8 @@
 </@>
 
 <@panel_page>
-<p><@msg "logout.message"/></p>
-<button id="logout-btn" class="btn btn-primary"><@msg "action.logout"/></button>
+	<p><@msg "logout.message"/></p>
+	<button id="logout-btn" class="btn btn-primary"><@msg "action.logout"/></button>
 </@>
 
 <@page_end>
