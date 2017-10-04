@@ -29,8 +29,8 @@
 					<span class="fa fa-clock-o"></span>
 					<#assign join_time=showing_user.registerTime?number_to_datetime>
 					<span>
-						<@msg "user_details.joined_on"/>
-						<time datetime="${join_time?iso_utc}" title="${join_time?string.full}">
+						${msg("user_details.joined_on")}
+						<time datetime="${join_time?iso_utc}" title="${join_time?string.full}" data-toggle="tooltip">
 							${join_time?date?string.iso}
 						</time>
 					</span>
@@ -44,7 +44,7 @@
 		</div>
 		<div class="col-sm-8 col-xs-12">
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#"><@msg "user_details.characters"/></a></li>
+				<li role="presentation" class="active"><a href="#">${msg("user_details.characters")}</a></li>
 			</ul>
 			<#if is_user_self||login_user.admin||user_characters?has_content>
 				<ul class="character-list divided-list">
@@ -52,7 +52,7 @@
 						<li class="add-character-btn">
 							<a class="add-element-link" href="${url("/character/new?ownerName={owner}",{"owner":showing_user.name})}">
 								<i class="fa fa-plus-square-o fa-3x"></i>
-								<span><@msg "user_details.add_character"/></span>
+								<span>${msg("user_details.add_character")}</span>
 							</a>
 						</li>
 					</#if>
@@ -78,7 +78,7 @@
 					</#list>
 				</ul>
 			<#else>
-				<div class="text-muted no-character-tip"><@msg "user_details.no_character"/></div>
+				<div class="text-muted no-character-tip">${msg("user_details.no_character")}</div>
 			</#if>
 		</div>
 	</div>

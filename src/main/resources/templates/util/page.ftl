@@ -21,9 +21,9 @@
 				<ul class="nav navbar-nav">
 					<#list navbar_tabs as navbar_tab,navbar_tab_url>
 						<#if current_tab?? && navbar_tab==current_tab>
-							<li class="active"><a href="${url(navbar_tab_url)}"><@msg navbar_tab/></a></li>
+							<li class="active"><a href="${url(navbar_tab_url)}">${msg(navbar_tab)}</a></li>
 						<#else>
-							<li><a href="${url(navbar_tab_url)}"><@msg navbar_tab/></a></li>
+							<li><a href="${url(navbar_tab_url)}">${msg(navbar_tab)}</a></li>
 						</#if>
 					</#list>
 				</ul>
@@ -36,16 +36,16 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="${user_profile_url(login_user)}"><@msg "nav.user.profile"/></a></li>
+								<li><a href="${user_profile_url(login_user)}">${msg("nav.user.profile")}</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="${url("/settings")}"><@msg "tab.settings"/></a></li>
-								<li><a id="logout-link" href="#"><@msg "action.logout"/></a></li>
+								<li><a href="${url("/settings")}">${msg("tab.settings")}</a></li>
+								<li><a id="logout-link" href="#">${msg("action.logout")}</a></li>
 							</ul>
 						</li>
 					</ul>
 					<form id="navbar-search-form" class="navbar-form" role="search">
 						<div class="form-group">
-							<input id="navbar-search-box" type="text" class="form-control" placeholder="<@msg "action.search"/>">
+							<input id="navbar-search-box" type="text" class="form-control" placeholder="${msg("action.search")}">
 						</div>
 					</form>
 				</div>

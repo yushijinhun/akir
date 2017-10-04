@@ -18,13 +18,13 @@
 	<#return url("/character/${character.uuid}")>
 </#function>
 
-<#macro msg key args=[]>
+<#function msg key args=[]>
 	<#if args?size==0>
-		<@spring.message key/>
+		<#return springMacroRequestContext.getMessage(key)/>
 	<#else>
-		<@spring.messageArgs key args/>
+		<#return springMacroRequestContext.getMessage(key,args)/>
 	</#if>
-</#macro>
+</#function>
 
 <#macro js path>
 	<script src="${url(path)}"></script>
@@ -34,12 +34,12 @@
 	<link href="${url(path)}" rel="stylesheet">
 </#macro>
 
-<#assign lang_metadata_locale><@msg "metadata.locale"/></#assign>
+<#assign lang_metadata_locale = msg("metadata.locale") />
 
 <#-- structures -->
 <#macro page_head>
 	<!DOCTYPE html>
-	<html lang="<@msg "metadata.lang"/>">
+	<html lang="${msg("metadata.lang")}">
 		<head>
 			<meta charset="utf-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -127,7 +127,53 @@
 	<div class="character-model-name character-model-name-${character_model}">
 		<span class="text-muted">
 			<i class="fa fa-${character_model_icons[character_model]}"></i>
-			<@msg "character.model.${character_model}"/>
+			${msg("character.model.${character_model}")}
 		</span>
 	</div>
+</#macro>
+
+<#-- modal -->
+<#macro modal id>
+	<div class="modal fade" id="${id}" tabindex="-1" role="dialog" >
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<#nested>
+			</div>
+		</div>
+	</div>
+</#macro>
+
+<#macro modal_header>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+		<h4 class="modal-title"><#nested></h4>
+	</div>
+</#macro>
+
+<#macro modal_body>
+	<div class="modal-body">
+		<#nested>
+	</div>
+</#macro>
+
+<#macro modal_footer>
+	<div class="modal-footer">
+		<#nested>
+	</div>
+</#macro>
+
+<#macro modal_btn_close content="">
+	<button type="button" class="btn btn-default" data-dismiss="modal">
+		<#if content=="">
+			${msg("general.cancel")}
+		<#else>
+			${content}
+		</#if>
+	</button>
+</#macro>
+
+<#macro modal_btn_primary content>
+	<button type="button" class="btn btn-primary">
+		${content}
+	</button>
 </#macro>

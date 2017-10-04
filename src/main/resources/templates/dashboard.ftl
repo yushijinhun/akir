@@ -2,7 +2,7 @@
 <#include "util/page.ftl">
 
 <@page_head>
-	<@title><@msg "tab.dashboard"/></@>
+	<@title>${msg("tab.dashboard")}</@>
 	<@css css_page_common/>
 </@>
 

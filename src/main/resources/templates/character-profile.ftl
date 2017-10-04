@@ -4,7 +4,7 @@
 <#assign is_user_self=showing_owner.id==login_user.id>
 <#assign allow_edit=is_user_self||login_user.admin>
 
-<#macro character_prop id name edit_tooltip>
+<#macro character_prop id name edit_tooltip modal_selector>
 	<li id="${id}">
 		<div class="row">
 			<div class="col-xs-4 prop-key">
@@ -15,7 +15,9 @@
 			</div>
 			<#if allow_edit>
 				<div class="col-xs-4 prop-edit">
-					<a class="fa fa-pencil add-element-link" href="#" title="${edit_tooltip}"></a>
+					<a class="add-element-link" href="#" data-toggle="modal" data-target="${modal_selector}">
+						<span class="fa fa-pencil" title="${edit_tooltip}" data-toggle="tooltip"></span>
+					</a>
 				</div>
 			</#if>
 		</div>
@@ -40,32 +42,44 @@
 	</div>
 
 	<ul class="character-properties">
-		<@character_prop "prop_name" "Character name" "Rename">
+		<@character_prop "prop_name" msg("character.name") msg("action.character.rename") "#modal_rename">
 			${showing_character.name}
 		</@>
-		<@character_prop "prop_owner" "Owner" "Transfer character">
+		<@character_prop "prop_owner" msg("character.owner") msg("action.character.transfer") "#modal_transfer">
 			${showing_owner.name}
 		</@>
-		<@character_prop "prop_model" "Model" "Change model">
+		<@character_prop "prop_model" msg("character.model") msg("action.character.change_model") "#modal_change_model">
 			<@character_model_name showing_character.model/>
 		</@>
-		<@character_prop "prop_skin" "Skin id" "Upload skin">
-			<span title="${ext.skinTextureId(showing_character)}">
+		<@character_prop "prop_skin" msg("character.texture.skin.id") msg("action.character.upload_skin") "#modal_upload_skin">
+			<span title="${ext.skinTextureId(showing_character)}" data-toggle="tooltip">
 				${ext.skinTextureId(showing_character)[0..*7]}
 			</span>
 		</@>
-		<@character_prop "prop_cape" "Cape id" "Upload cape">
+		<@character_prop "prop_cape" msg("character.texture.cape.id") msg("action.character.upload_cape") "#modal_upload_cape">
 			<#if ext.capeTextureId(showing_character)??>
-				<span title="${ext.capeTextureId(showing_character)}">
+				<span title="${ext.capeTextureId(showing_character)}" data-toggle="tooltip">
 					${ext.capeTextureId(showing_character)[0..*7]}
 				</span>
 			<#else>
 				<span class="text-muted">
-					None
+					${msg("character.texture.missing")}
 				</span>
 			</#if>
 		</@>
 	</ul>
+</@>
+
+<#-- rename -->
+<@modal "modal_rename">
+	<@modal_header>${msg("action.character.rename")}</@>
+	<@modal_body>
+		content
+	</@>
+	<@modal_footer>
+		<@modal_btn_close/>
+		<@modal_btn_primary msg("action.character.rename.submit")/>
+	</@>
 </@>
 
 <@page_end>

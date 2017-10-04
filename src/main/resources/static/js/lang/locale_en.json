@@ -12,7 +12,7 @@
 	"error.character.conflict":"The identity conflicts with another character.",
 	"error.character.conflict.name":"Character name is already in use",
 	"error.character.not_found":"No such character",
-	"character.error.unauthorized":"You are not allowed to operate on the character.",
+	"error.character.unauthorized":"You are not allowed to operate on the character.",
 
 	"error.ajax.network":"Unable to connect to server.",
 	"error.ajax.unknown":"An error occurred while sending the request.",
@@ -27,11 +27,14 @@
 
 	"character.name":"Character name",
 	"character.owner":"Owner",
-
+	"character.model":"Model",
 	"character.model.steve":"Steve",
 	"character.model.steve.description":"Standard skin model with 4 pixel wide arms.",
 	"character.model.alex":"Alex",
 	"character.model.alex.description":"Slim skin model with 3 pixel wide arms.",
+	"character.texture.skin.id":"Skin id",
+	"character.texture.cape.id":"Cape id",
+	"character.texture.missing":"None",
 
 	"action.login":"Login",
 	"action.logout":"Logout",
@@ -40,6 +43,13 @@
 	"action.resend_email":"Resend",
 	"action.search":"Search",
 	"action.create_character":"Create a new character",
+
+	"action.character.rename":"Rename character",
+	"action.character.rename.submit":"Rename",
+	"action.character.transfer":"Transfer character",
+	"action.character.change_model":"Change model",
+	"action.character.upload_skin":"Upload skin",
+	"action.character.upload_cape":"Upload cape",
 
 	"tab.dashboard":"Dashboard",
 	"tab.marketplace":"Marketplace",

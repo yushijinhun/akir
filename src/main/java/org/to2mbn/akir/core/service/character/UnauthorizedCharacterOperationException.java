@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Thrown when a non-admin user is trying to operate on a character which doesn't belong to the user.
  */
-@ResponseStatus(code = FORBIDDEN, reason = "character.error.unauthorized")
+@ResponseStatus(code = FORBIDDEN, reason = "error.character.unauthorized")
 public class UnauthorizedCharacterOperationException extends Exception {
 
 	private static final long serialVersionUID = 1L;

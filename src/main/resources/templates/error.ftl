@@ -11,9 +11,9 @@
 	<body>
 		<div class="container">
 			<h2>${error.error}</h2>
-			<p><@msg key="error_page.error_code" args=[error.code?c]/></p>
+			<p>${msg("error_page.error_code",[error.code?c])}</p>
 			<#if error.details??>
-				<p><@msg error.details/></p>
+				<p>${msg(error.details)}</p>
 			</#if>
 		</div>
 		<@js js_jquery/>
