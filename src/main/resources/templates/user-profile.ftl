@@ -52,7 +52,7 @@
 						<li class="add-character-btn">
 							<a class="add-element-link" href="${url("/character/new?ownerName={owner}",{"owner":showing_user.name})}">
 								<i class="fa fa-plus-square-o fa-3x"></i>
-								<span>${msg("user_details.add_character")}</span>
+								<span>${msg("action.character.create")}</span>
 							</a>
 						</li>
 					</#if>

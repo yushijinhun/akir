@@ -8,6 +8,7 @@
 	"error.user.conflict.email":"Email is already in use",
 	"error.user.conflict.name":"Name is already in use",
 	"error.user.not_found":"No such user",
+	"error.user.invalid_credentials":"Incorrect email or password.",
 
 	"error.character.conflict":"The identity conflicts with another character.",
 	"error.character.conflict.name":"Character name is already in use",
@@ -16,10 +17,6 @@
 
 	"error.ajax.network":"Unable to connect to server.",
 	"error.ajax.unknown":"An error occurred while sending the request.",
-
-	"error_page.error_code":"Error code: {0}",
-
-	"error_dialog.title":"Error",
 
 	"user.email":"Email",
 	"user.name":"Name",
@@ -42,10 +39,15 @@
 	"action.verify_email":"Verify your email",
 	"action.resend_email":"Resend",
 	"action.search":"Search",
-	"action.create_character":"Create a new character",
+
+	"action.character.create":"Create a new character",
+	"action.character.create.choose_model":"Choose a model for the new character",
+	"action.character.create.choose_model.description":"You can also change the model after creation.",
+	"action.character.create.submit":"Create",
 
 	"action.character.rename":"Rename character",
 	"action.character.rename.submit":"Rename",
+
 	"action.character.transfer":"Transfer character",
 	"action.character.change_model":"Change model",
 	"action.character.upload_skin":"Upload skin",
@@ -56,11 +58,14 @@
 	"tab.help":"Help",
 	"tab.settings":"Settings",
 
+	"error_page.error_code":"Error code: {0}",
+
+	"error_dialog.title":"Error",
+
 	"nav.user.profile":"Profile",
 
 	"login.panel_title":"Login to {0}",
 	"login.register_action":"register",
-	"login.error.invalid_credentials":"Incorrect email or password.",
 
 	"register.panel_title":"Create a new account",
 	"register.confirm_password":"Confirm Password",
@@ -86,10 +91,5 @@
 
 	"user_details.joined_on":"Joined on",
 	"user_details.characters":"Characters",
-	"user_details.no_character":"No characters",
-	"user_details.add_character":"Create a character",
-
-	"create_character.choose_model":"Choose a model for the new character",
-	"create_character.choose_model.description":"You can also change the model after creation.",
-	"create_character.submit":"Create"
+	"user_details.no_character":"No characters"
 }

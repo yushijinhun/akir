@@ -46,7 +46,6 @@ dependencies {
 }
 
 bootJar {
-	mainClass = 'org.to2mbn.akir.Akir'
 	manifest {
 		attributes(
 			'Main-Class': 'org.springframework.boot.loader.PropertiesLauncher',
@@ -54,6 +53,7 @@ bootJar {
 			'Implementation-Version': project.version
 		)
 	}
+	launchScript()
 }
 
 springBoot {
