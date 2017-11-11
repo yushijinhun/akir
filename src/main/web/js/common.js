@@ -68,4 +68,21 @@
 		return (xhr, textStatus, errorThrown) => customer(resolveErrorResponse(xhr, textStatus, errorThrown));
 	};
 
+	window.pageMetadata = key => $("meta[name='akir:" + key + "']").attr('content');
+
+	let character_model_icons = {
+		"steve": "mars",
+		"alex": "venus"
+	};
+	window.htmlCharacterModelName = model => {
+		model = model.toLowerCase();
+		return `
+			<div class="character-model-name character-model-name-${model}">
+				<span class="text-muted">
+					<i class="fa fa-${character_model_icons[model]}"></i>
+					${msg("character.model." + model)}
+				</span>
+			</div>
+		`;
+	};
 })();

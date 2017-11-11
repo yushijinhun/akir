@@ -18,6 +18,8 @@
 	"error.ajax.network":"Unable to connect to server.",
 	"error.ajax.unknown":"An error occurred while sending the request.",
 
+	"general.cancel":"Cancel",
+
 	"user.email":"Email",
 	"user.name":"Name",
 	"user.password":"Password",
@@ -47,6 +49,7 @@
 
 	"action.character.rename":"Rename character",
 	"action.character.rename.submit":"Rename",
+	"action.character.rename.new_name":"New name",
 
 	"action.character.transfer":"Transfer character",
 	"action.character.change_model":"Change model",

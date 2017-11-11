@@ -34,6 +34,10 @@
 	<link href="${url(path)}" rel="stylesheet">
 </#macro>
 
+<#macro metadata key value>
+	<meta name="akir:${key}" content="${value}" />
+</#macro>
+
 <#assign lang_metadata_locale = msg("metadata.locale") />
 
 <#-- structures -->
@@ -45,7 +49,8 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<meta name="_csrf" content="${_csrf.token}"/>
 			<meta name="_csrf_header" content="${_csrf.headerName}"/>
-			<meta name="_lang_json" content="${url("/js/lang/locale_${lang_metadata_locale}.json")}" />
+			<@metadata key="lang_json" value=url("/js/lang/locale_${lang_metadata_locale}.json")/>
+			<@metadata key="site_name" value=akir_server.name/>
 			<@css css_bootstrap/>
 			<@css css_font_awesome/>
 			<#nested>
@@ -169,11 +174,5 @@
 		<#else>
 			${content}
 		</#if>
-	</button>
-</#macro>
-
-<#macro modal_btn_primary content>
-	<button type="button" class="btn btn-primary">
-		${content}
 	</button>
 </#macro>

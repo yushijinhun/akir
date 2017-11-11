@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.to2mbn.akir.core.model.User;
 import org.to2mbn.akir.core.repository.CharacterRepository;
-import org.to2mbn.akir.core.repository.UserRepository;
 import org.to2mbn.akir.core.service.user.UserNotFoundException;
+import org.to2mbn.akir.core.service.user.UserService;
 
 @Controller
 @RequestMapping("/user/{username}")
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepo;
+	private UserService userService;
 
 	@Autowired
 	private CharacterRepository profileRepo;
 
 	@GetMapping
 	public String viewProfile(@PathVariable String username, ModelMap model) throws UserNotFoundException {
-		User user = userRepo.findByName(username).orElseThrow(() -> new UserNotFoundException(username));
+		User user = userService.userOf(username);
 		model.put("showing_user", user);
 		model.put("user_characters", profileRepo.findByOwnerId(user.getId()));
 		return "user-profile";

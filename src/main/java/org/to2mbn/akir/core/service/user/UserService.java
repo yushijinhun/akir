@@ -143,6 +143,10 @@ public class UserService {
 		return repository.findById(user.getId()).get();
 	}
 
+	public User userOf(String name) throws UserNotFoundException {
+		return repository.findByName(name).orElseThrow(() -> new UserNotFoundException(name));
+	}
+
 	@EventListener
 	public void onLoginSuccess(AuthenticationSuccessEvent event) {
 		LOGGER.info("User {} login successfully",

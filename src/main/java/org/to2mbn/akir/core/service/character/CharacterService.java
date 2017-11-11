@@ -53,13 +53,15 @@ public class CharacterService {
 		throw new UnauthorizedCharacterOperationException("You are not admin, or the character doesn't belong to you");
 	}
 
-	public GameCharacter createCharacter(UUID owner, String characterName) throws UserNotFoundException, CharacterConflictException {
-		// check name
+	private void validateCharacterName(String characterName) {
 		if (characterName.length() > MAX_LENGTH_NAME)
 			throw new IllegalArgumentException("Name is too long");
 		if (!PATTERN_NAME.matcher(characterName).matches())
 			throw new IllegalArgumentException("Invalid name");
+	}
 
+	public GameCharacter createCharacter(UUID owner, String characterName) throws UserNotFoundException, CharacterConflictException {
+		validateCharacterName(characterName);
 		// we only use lower-case character name
 		characterName = characterName.toLowerCase();
 
@@ -85,4 +87,37 @@ public class CharacterService {
 		return characterRepo.findById(character.getUuid()).get();
 	}
 
+	public GameCharacter renameCharacter(GameCharacter character, String newName) throws CharacterConflictException {
+		validateCharacterName(newName);
+		newName = newName.toLowerCase();
+
+		if (character.getName().equals(newName))
+			return character;
+
+		if (characterRepo.existsByName(newName))
+			throw new CharacterConflictException(newName);
+
+		character.setName(newName);
+		character = characterRepo.save(character);
+
+		return character;
+	}
+
+	public GameCharacter characterOf(String uuid) throws CharacterNotFoundException {
+		UUID characterUuid;
+		try {
+			characterUuid = UUID.fromString(uuid);
+		} catch (IllegalArgumentException e) {
+			throw new CharacterNotFoundException(uuid);
+		}
+		return characterOf(characterUuid);
+	}
+
+	public GameCharacter characterOf(UUID uuid) throws CharacterNotFoundException {
+		return characterRepo.findById(uuid).orElseThrow(() -> new CharacterNotFoundException(uuid));
+	}
+
+	public User ownerOf(GameCharacter character) throws UserNotFoundException {
+		return userRepo.findById(character.getOwnerId()).orElseThrow(() -> new UserNotFoundException(character.getOwnerId().toString()));
+	}
 }

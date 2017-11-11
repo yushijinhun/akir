@@ -53,7 +53,13 @@ bootJar {
 			'Implementation-Version': project.version
 		)
 	}
-	launchScript()
+	launchScript {
+		properties(
+			'initInfoProvides': 'akir',
+			'initInfoShortDescription': 'akir',
+			'initInfoDescription': 'akir'
+		)
+	}
 }
 
 springBoot {

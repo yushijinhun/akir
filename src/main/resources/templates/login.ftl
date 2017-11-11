@@ -2,9 +2,9 @@
 <#include "util/panel-page.ftl">
 
 <@page_head>
-	<meta name="_login_return_url" content="${login_return_url!"/"}"/>
+	<@metadata key="login_return_url" value=login_return_url!"/"/>
 	<#if login_tooltip??>
-		<meta name="_login_tooltip" content="${login_tooltip}"/>
+		<@metadata key="login_tooltip" value=login_tooltip/>
 	</#if>
 	<@title>${msg("action.login")}</@>
 	<@css "/css/panel-page.css"/>

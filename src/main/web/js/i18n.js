@@ -23,7 +23,7 @@
 	};
 
 	$(() => {
-		$.getJSON($('meta[name=\'_lang_json\']').attr('content')).done(result => {
+		$.getJSON(pageMetadata('lang_json')).done(result => {
 			if (result instanceof Object) {
 				langData = result;
 			} else {

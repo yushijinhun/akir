@@ -20,12 +20,6 @@ public final class WebUtils {
 				|| "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 	}
 
-	public static String getRelativePath(HttpServletRequest request) {
-		String path = request.getRequestURI();
-		String query = request.getQueryString();
-		return query == null ? path : path + "?" + query;
-	}
-
 	public static Optional<ResponseStatus> getResponseStatus(Throwable e) {
 		return Optional.ofNullable(AnnotatedElementUtils.findMergedAnnotation(e.getClass(), ResponseStatus.class));
 	}

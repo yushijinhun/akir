@@ -25,8 +25,8 @@
 					<label for="characterName">${msg("character.name")}</label>
 					<div class="character-name-input">
 						<input id="characterName" name="characterName" type="text" class="form-control" required autofocus
-						maxlength="${name_maxlength?c}"
-						pattern="${name_regex}"
+						maxlength="${character_restriction.name_maxlength?c}"
+						pattern="${character_restriction.name_regex}"
 						data-remote="${url("/character/new/validate/name")}"
 						data-remote-error="${msg("error.character.conflict.name")}">
 						<@form_feedback_icon/>

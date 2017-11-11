@@ -2,6 +2,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: true
   resources:
     cache-period: 691200
     chain:
