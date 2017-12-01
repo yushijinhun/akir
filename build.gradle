@@ -42,6 +42,7 @@ dependencies {
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
 	compile 'commons-codec:commons-codec'
 	compile 'mysql:mysql-connector-java'
+	compile 'javax.xml.bind:jaxb-api:2.3.0' // https://jira.spring.io/browse/DATACMNS-1033
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

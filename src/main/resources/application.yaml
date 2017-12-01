@@ -4,7 +4,8 @@ spring:
       ddl-auto: update
     open-in-view: true
   resources:
-    cache-period: 691200
+    cache:
+      period: 691200s
     chain:
       strategy:
         content:

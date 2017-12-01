@@ -1,8 +1,9 @@
 package org.to2mbn.akir.web;
 
 import static java.util.Collections.unmodifiableList;
+import static java.util.Map.entry;
+import static java.util.Map.ofEntries;
 import static java.util.stream.Collectors.toList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -53,21 +54,19 @@ public class GlobalControllerAdvice {
 
 	@ModelAttribute("character_restriction")
 	public Map<String, Object> characterRestriction() {
-		Map<String, Object> restrictions = new HashMap<>();
-		restrictions.put("name_regex", CharacterService.REGEX_NAME);
-		restrictions.put("name_maxlength", CharacterService.MAX_LENGTH_NAME);
-		return restrictions;
+		return ofEntries(
+				entry("name_regex", CharacterService.REGEX_NAME),
+				entry("name_maxlength", CharacterService.MAX_LENGTH_NAME));
 	}
 
 	@ModelAttribute("user_restriction")
 	public Map<String, Object> userRestriction() {
-		Map<String, Object> restrictions = new HashMap<>();
-		restrictions.put("email_maxlength", UserService.MAX_LENGTH_EMAIL);
-		restrictions.put("email_regex", UserService.REGEX_EMAIL);
-		restrictions.put("name_maxlength", UserService.MAX_LENGTH_NAME);
-		restrictions.put("name_regex", UserService.REGEX_NAME);
-		restrictions.put("password_maxlength", UserService.MAX_LENGTH_PASSWORD);
-		restrictions.put("password_minlength", UserService.MIN_LENGTH_PASSWORD);
-		return restrictions;
+		return ofEntries(
+				entry("email_maxlength", UserService.MAX_LENGTH_EMAIL),
+				entry("email_regex", UserService.REGEX_EMAIL),
+				entry("name_maxlength", UserService.MAX_LENGTH_NAME),
+				entry("name_regex", UserService.REGEX_NAME),
+				entry("password_maxlength", UserService.MAX_LENGTH_PASSWORD),
+				entry("password_minlength", UserService.MIN_LENGTH_PASSWORD));
 	}
 }

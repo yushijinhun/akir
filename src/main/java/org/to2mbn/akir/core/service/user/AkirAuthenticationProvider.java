@@ -1,7 +1,7 @@
 package org.to2mbn.akir.core.service.user;
 
+import static java.util.Collections.unmodifiableCollection;
 import java.util.Collection;
-import java.util.Collections;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -30,7 +30,7 @@ public class AkirAuthenticationProvider extends DaoAuthenticationProvider {
 	}
 
 	private Collection<GrantedAuthority> getAuthorities(Object principal) {
-		return Collections.unmodifiableCollection(((UserDetails) principal).getAuthorities());
+		return unmodifiableCollection(((UserDetails) principal).getAuthorities());
 	}
 
 	@PostConstruct

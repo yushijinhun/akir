@@ -69,7 +69,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
-	@Autowired(required = false)
+	@Autowired
 	private AuthenticationManager authProvider;
 
 	@Autowired

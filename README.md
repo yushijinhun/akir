@@ -6,7 +6,7 @@ Minecraft账号系统
 ## 构建
 
 构建依赖：
- * JDK 8或以上
+ * JDK 9或以上
  * npm
  * Gradle
 
